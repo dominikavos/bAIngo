@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.example.meetingbingo.app-debug-45:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.meetingbingo.app-main-47:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.meetingbingo.app-debug-45:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.meetingbingo.app-main-47:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.meetingbingo.app-debug-45:/xml_backup_rules.xml.flat",
+        "source": "com.example.meetingbingo.app-main-47:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.meetingbingo.app-debug-45:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.meetingbingo.app-main-47:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.meetingbingo.app-debug-45:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.meetingbingo.app-main-47:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    }
+]

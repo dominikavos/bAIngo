@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meeting Bingo</string>
+    <string name="start_listening">Start Listening</string>
+    <string name="stop_listening">Stop Listening</string>
+    <string name="new_game">New Game</string>
+    <string name="bingo">BINGO!</string>
+    <string name="free">FREE</string>
+    <string name="listening">Listening...</string>
+    <string name="not_listening">Tap mic to start</string>
+    <string name="permission_required">Microphone permission is required for speech recognition</string>
+    <string name="speech_not_available">Speech recognition is not available on this device</string>
+</resources>
