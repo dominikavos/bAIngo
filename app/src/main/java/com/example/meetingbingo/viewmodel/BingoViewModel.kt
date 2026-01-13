@@ -1,6 +1,7 @@
 package com.example.meetingbingo.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.meetingbingo.data.MeetingWords
@@ -19,23 +20,31 @@ import kotlinx.coroutines.launch
  */
 class BingoViewModel(application: Application) : AndroidViewModel(application) {
 
+    companion object {
+        private const val TAG = "BingoViewModel"
+    }
+
     private val _state = MutableStateFlow(BingoState())
     val state: StateFlow<BingoState> = _state.asStateFlow()
 
     private val speechManager = SpeechRecognitionManager(application)
 
     init {
+        Log.e(TAG, "ViewModel initialized")
         generateNewCard()
         setupSpeechRecognition()
     }
 
     private fun setupSpeechRecognition() {
+        Log.e(TAG, "Setting up speech recognition listener")
         speechManager.setOnWordsRecognizedListener { text ->
+            Log.e(TAG, "Words recognized callback: $text")
             processRecognizedText(text)
         }
 
         viewModelScope.launch {
             speechManager.error.collect { error ->
+                Log.e(TAG, "Speech error: $error")
                 _state.update { it.copy(errorMessage = error) }
             }
         }
@@ -88,6 +97,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      * Start listening for speech.
      */
     fun startListening() {
+        Log.e(TAG, "startListening called")
         speechManager.startListening()
         _state.update { it.copy(isListening = true, errorMessage = null) }
     }
@@ -96,6 +106,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      * Stop listening for speech.
      */
     fun stopListening() {
+        Log.e(TAG, "stopListening called")
         speechManager.stopListening()
         _state.update { it.copy(isListening = false) }
     }
@@ -104,6 +115,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      * Toggle listening state.
      */
     fun toggleListening() {
+        Log.e(TAG, "toggleListening called, current state: ${_state.value.isListening}")
         if (_state.value.isListening) {
             stopListening()
         } else {
@@ -132,6 +144,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      * Process recognized text and mark matching cells.
      */
     private fun processRecognizedText(text: String) {
+        Log.d(TAG, "processRecognizedText: $text")
         val lowerText = text.lowercase()
 
         _state.update { currentState ->
