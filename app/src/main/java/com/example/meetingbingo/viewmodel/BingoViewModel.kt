@@ -1,13 +1,14 @@
 package com.example.meetingbingo.viewmodel
 
 import android.app.Application
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.meetingbingo.audio.AudioCaptureManager
 import com.example.meetingbingo.data.MeetingWords
 import com.example.meetingbingo.model.BingoCell
 import com.example.meetingbingo.model.BingoState
-import com.example.meetingbingo.speech.SpeechRecognitionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 /**
  * ViewModel for managing the Bingo game state.
- * Handles card generation, word detection, and win checking.
+ * Uses AudioPlaybackCapture to capture meeting audio (system audio playback).
  */
 class BingoViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,27 +28,78 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     private val _state = MutableStateFlow(BingoState())
     val state: StateFlow<BingoState> = _state.asStateFlow()
 
-    private val speechManager = SpeechRecognitionManager(application)
+    private val audioCaptureManager = AudioCaptureManager(application)
+    private var mediaProjectionRequester: (() -> Unit)? = null
+    private var pendingStart = false
 
     init {
-        Log.e(TAG, "ViewModel initialized")
+        Log.d(TAG, "ViewModel initialized")
         generateNewCard()
-        setupSpeechRecognition()
+        setupAudioCapture()
     }
 
-    private fun setupSpeechRecognition() {
-        Log.e(TAG, "Setting up speech recognition listener")
-        speechManager.setOnWordsRecognizedListener { text ->
-            Log.e(TAG, "Words recognized callback: $text")
-            processRecognizedText(text)
+    private fun setupAudioCapture() {
+        Log.d(TAG, "Setting up AudioPlaybackCapture")
+
+        audioCaptureManager.setOnAudioDataListener { audioData ->
+            // For now, just show audio level - later can integrate speech recognition
+            val level = calculateRmsLevel(audioData)
+            _state.update { currentState ->
+                currentState.copy(
+                    lastHeardWords = "System Audio | Level: %.4f | Samples: %d".format(level, audioData.size)
+                )
+            }
         }
 
         viewModelScope.launch {
-            speechManager.error.collect { error ->
-                Log.e(TAG, "Speech error: $error")
-                _state.update { it.copy(errorMessage = error) }
+            audioCaptureManager.error.collect { error ->
+                if (error != null) {
+                    Log.e(TAG, "Audio error: $error")
+                    _state.update { it.copy(errorMessage = error) }
+                }
             }
         }
+
+        viewModelScope.launch {
+            audioCaptureManager.isRecording.collect { isRecording ->
+                _state.update { it.copy(isListening = isRecording) }
+            }
+        }
+    }
+
+    private fun calculateRmsLevel(buffer: ShortArray): Float {
+        if (buffer.isEmpty()) return 0f
+        var sum = 0.0
+        for (sample in buffer) {
+            sum += sample * sample
+        }
+        val rms = kotlin.math.sqrt(sum / buffer.size)
+        return (rms / Short.MAX_VALUE).toFloat()
+    }
+
+    /**
+     * Set the callback for requesting MediaProjection permission from Activity.
+     */
+    fun setMediaProjectionRequester(requester: () -> Unit) {
+        mediaProjectionRequester = requester
+    }
+
+    /**
+     * Called when MediaProjection is approved.
+     */
+    fun onMediaProjectionResult(resultCode: Int, data: Intent) {
+        Log.d(TAG, "MediaProjection result received")
+        audioCaptureManager.startCapture(resultCode, data)
+        pendingStart = false
+    }
+
+    /**
+     * Called when MediaProjection is denied.
+     */
+    fun onMediaProjectionDenied() {
+        Log.d(TAG, "MediaProjection denied")
+        pendingStart = false
+        _state.update { it.copy(isListening = false, errorMessage = "Screen capture permission required") }
     }
 
     /**
@@ -61,7 +113,6 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
         for (row in 0 until 5) {
             for (col in 0 until 5) {
                 val cell = if (row == 2 && col == 2) {
-                    // Center cell is the FREE space
                     BingoCell(
                         word = "FREE",
                         isMarked = true,
@@ -94,20 +145,24 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Start listening for speech.
+     * Start listening - requests MediaProjection permission from Activity.
      */
     fun startListening() {
-        Log.e(TAG, "startListening called")
-        speechManager.startListening()
-        _state.update { it.copy(isListening = true, errorMessage = null) }
+        Log.d(TAG, "startListening called - requesting MediaProjection")
+        pendingStart = true
+        mediaProjectionRequester?.invoke()
+            ?: run {
+                Log.e(TAG, "MediaProjection requester not set!")
+                _state.update { it.copy(errorMessage = "Cannot start capture - Activity not ready") }
+            }
     }
 
     /**
-     * Stop listening for speech.
+     * Stop listening for audio.
      */
     fun stopListening() {
-        Log.e(TAG, "stopListening called")
-        speechManager.stopListening()
+        Log.d(TAG, "stopListening called")
+        audioCaptureManager.stopCapture()
         _state.update { it.copy(isListening = false) }
     }
 
@@ -115,7 +170,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      * Toggle listening state.
      */
     fun toggleListening() {
-        Log.e(TAG, "toggleListening called, current state: ${_state.value.isListening}")
+        Log.d(TAG, "toggleListening called, current state: ${_state.value.isListening}")
         if (_state.value.isListening) {
             stopListening()
         } else {
@@ -148,14 +203,11 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
         val lowerText = text.lowercase()
 
         _state.update { currentState ->
-            var hasNewMatch = false
             val updatedCells = currentState.cells.map { cell ->
                 if (!cell.isMarked && !cell.isFreeSpace) {
-                    // Check if the recognized text contains this cell's word
                     val cellWord = cell.word.lowercase()
                     if (lowerText.contains(cellWord) ||
                         cellWord.split(" ").all { word -> lowerText.contains(word) }) {
-                        hasNewMatch = true
                         cell.copy(isMarked = true)
                     } else {
                         cell
@@ -174,7 +226,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Check if the current state represents a Bingo (5 in a row, column, or diagonal).
+     * Check if the current state represents a Bingo.
      */
     private fun checkForBingo(state: BingoState): Boolean {
         val grid = state.getGrid()
@@ -213,8 +265,15 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(errorMessage = null) }
     }
 
+    /**
+     * Cleanup resources.
+     */
+    fun cleanup() {
+        audioCaptureManager.destroy()
+    }
+
     override fun onCleared() {
         super.onCleared()
-        speechManager.destroy()
+        cleanup()
     }
 }

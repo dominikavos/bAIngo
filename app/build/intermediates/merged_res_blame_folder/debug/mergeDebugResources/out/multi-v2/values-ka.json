@@ -4,7 +4,7 @@
             "outputFile": "com.example.meetingbingo.app-mergeDebugResources-43:/values-ka/values-ka.xml",
             "map": [
                 {
-                    "source": "/home/dominik/.gradle/caches/transforms-4/7354c697199d66ecc6e3733368fd6a1e/transformed/material3-release/res/values-ka/values-ka.xml",
+                    "source": "/home/dominik/.gradle/caches/transforms-4/e8ea5ef97826f6d4c0422c4e75604092/transformed/material3-release/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "/home/dominik/.gradle/caches/transforms-4/39c944136b88311dba7f848385c775c3/transformed/core-1.13.1/res/values-ka/values-ka.xml",
+                    "source": "/home/dominik/.gradle/caches/transforms-4/c60e19e6be8c9109406b0e599aaca5d2/transformed/foundation-release/res/values-ka/values-ka.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,143",
+                        "endColumns": "87,90",
+                        "endOffsets": "138,229"
+                    },
+                    "to": {
+                        "startLines": "83,84",
+                        "startColumns": "4,4",
+                        "startOffsets": "8573,8661",
+                        "endColumns": "87,90",
+                        "endOffsets": "8656,8747"
+                    }
+                },
+                {
+                    "source": "/home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -38,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "/home/dominik/.gradle/caches/transforms-4/8c67ee56403c77d0c55c4c29364c53a1/transformed/ui-release/res/values-ka/values-ka.xml",
+                    "source": "/home/dominik/.gradle/caches/transforms-4/3db34e0345f1c49319544df50f001923/transformed/ui-release/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -52,23 +69,6 @@
                         "startOffsets": "829,925,1011,1110,1213,1303,1383,7633,7723,7810,7881,7950,8039,8130,8303,8382,8452",
                         "endColumns": "95,85,98,102,89,79,95,89,86,70,68,88,90,71,78,69,120",
                         "endOffsets": "920,1006,1105,1208,1298,1378,1474,7718,7805,7876,7945,8034,8125,8197,8377,8447,8568"
-                    }
-                },
-                {
-                    "source": "/home/dominik/.gradle/caches/transforms-4/43844b128a895aba39783f7ba0654d95/transformed/foundation-release/res/values-ka/values-ka.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,143",
-                        "endColumns": "87,90",
-                        "endOffsets": "138,229"
-                    },
-                    "to": {
-                        "startLines": "83,84",
-                        "startColumns": "4,4",
-                        "startOffsets": "8573,8661",
-                        "endColumns": "87,90",
-                        "endOffsets": "8656,8747"
                     }
                 }
             ]
