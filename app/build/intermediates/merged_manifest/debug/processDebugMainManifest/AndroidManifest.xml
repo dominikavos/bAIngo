@@ -33,6 +33,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetingBingo" >
+        <uses-library
+            android:name="no.neat.ndk"
+            android:required="true" />
+
         <activity
             android:name="com.example.meetingbingo.MainActivity"
             android:exported="true"

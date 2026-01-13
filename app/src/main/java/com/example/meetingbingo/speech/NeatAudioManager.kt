@@ -77,7 +77,9 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
         sampleCount = 0
         callbackCount = 0
 
+        Log.e(TAG, "Calling audio.startAudioRecording with callback...")
         val success = audio.startAudioRecording { microphone, loudspeaker, numSamples ->
+            Log.e(TAG, "CALLBACK RECEIVED! numSamples=$numSamples, mic=${microphone?.size}, speaker=${loudspeaker?.size}")
             callbackCount++
             sampleCount += numSamples
 

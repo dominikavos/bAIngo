@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
+    
     <application
         android:name=".MeetingBingoApplication"
         android:allowBackup="true"
@@ -19,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetingBingo"
         tools:targetApi="31">
+
+        <uses-library android:name="no.neat.ndk" android:required="true" />
 
         <activity
             android:name=".MainActivity"

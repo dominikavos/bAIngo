@@ -1,14 +1,14 @@
 package com.example.meetingbingo.viewmodel
 
 import android.app.Application
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.meetingbingo.audio.AudioCaptureManager
+import com.example.meetingbingo.MeetingBingoApplication
 import com.example.meetingbingo.data.MeetingWords
 import com.example.meetingbingo.model.BingoCell
 import com.example.meetingbingo.model.BingoState
+import com.example.meetingbingo.speech.NeatAudioManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 /**
  * ViewModel for managing the Bingo game state.
- * Uses AudioPlaybackCapture to capture meeting audio (system audio playback).
+ * Uses NeatDevKit Audio API to capture meeting audio.
  */
 class BingoViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -28,31 +28,29 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     private val _state = MutableStateFlow(BingoState())
     val state: StateFlow<BingoState> = _state.asStateFlow()
 
-    private val audioCaptureManager = AudioCaptureManager(application)
-    private var mediaProjectionRequester: (() -> Unit)? = null
-    private var pendingStart = false
+    private val neatAudioManager = NeatAudioManager(MeetingBingoApplication.neatDevKit)
 
     init {
         Log.d(TAG, "ViewModel initialized")
         generateNewCard()
-        setupAudioCapture()
+        setupAudioRecording()
     }
 
-    private fun setupAudioCapture() {
-        Log.d(TAG, "Setting up AudioPlaybackCapture")
+    private fun setupAudioRecording() {
+        Log.d(TAG, "Setting up NeatDevKit audio recording")
+        Log.d(TAG, "Audio recording available: ${neatAudioManager.isAvailable.value}")
 
-        audioCaptureManager.setOnAudioDataListener { audioData ->
-            // For now, just show audio level - later can integrate speech recognition
-            val level = calculateRmsLevel(audioData)
+        neatAudioManager.setOnAudioReceivedListener { micLevel, speakerLevel, samples ->
+            // Update the UI with audio level info
             _state.update { currentState ->
                 currentState.copy(
-                    lastHeardWords = "System Audio | Level: %.4f | Samples: %d".format(level, audioData.size)
+                    lastHeardWords = "Mic: %.4f | Speaker: %.4f | Samples: %d".format(micLevel, speakerLevel, samples)
                 )
             }
         }
 
         viewModelScope.launch {
-            audioCaptureManager.error.collect { error ->
+            neatAudioManager.error.collect { error ->
                 if (error != null) {
                     Log.e(TAG, "Audio error: $error")
                     _state.update { it.copy(errorMessage = error) }
@@ -61,45 +59,12 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         viewModelScope.launch {
-            audioCaptureManager.isRecording.collect { isRecording ->
-                _state.update { it.copy(isListening = isRecording) }
+            neatAudioManager.audioStatus.collect { status ->
+                if (status.isNotEmpty()) {
+                    Log.d(TAG, "Audio status: $status")
+                }
             }
         }
-    }
-
-    private fun calculateRmsLevel(buffer: ShortArray): Float {
-        if (buffer.isEmpty()) return 0f
-        var sum = 0.0
-        for (sample in buffer) {
-            sum += sample * sample
-        }
-        val rms = kotlin.math.sqrt(sum / buffer.size)
-        return (rms / Short.MAX_VALUE).toFloat()
-    }
-
-    /**
-     * Set the callback for requesting MediaProjection permission from Activity.
-     */
-    fun setMediaProjectionRequester(requester: () -> Unit) {
-        mediaProjectionRequester = requester
-    }
-
-    /**
-     * Called when MediaProjection is approved.
-     */
-    fun onMediaProjectionResult(resultCode: Int, data: Intent) {
-        Log.d(TAG, "MediaProjection result received")
-        audioCaptureManager.startCapture(resultCode, data)
-        pendingStart = false
-    }
-
-    /**
-     * Called when MediaProjection is denied.
-     */
-    fun onMediaProjectionDenied() {
-        Log.d(TAG, "MediaProjection denied")
-        pendingStart = false
-        _state.update { it.copy(isListening = false, errorMessage = "Screen capture permission required") }
     }
 
     /**
@@ -145,16 +110,12 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**
-     * Start listening - requests MediaProjection permission from Activity.
+     * Start listening for audio.
      */
     fun startListening() {
-        Log.d(TAG, "startListening called - requesting MediaProjection")
-        pendingStart = true
-        mediaProjectionRequester?.invoke()
-            ?: run {
-                Log.e(TAG, "MediaProjection requester not set!")
-                _state.update { it.copy(errorMessage = "Cannot start capture - Activity not ready") }
-            }
+        Log.d(TAG, "startListening called - using NeatDevKit audio")
+        val success = neatAudioManager.startRecording()
+        _state.update { it.copy(isListening = success, errorMessage = if (!success) "Failed to start recording" else null) }
     }
 
     /**
@@ -162,7 +123,7 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun stopListening() {
         Log.d(TAG, "stopListening called")
-        audioCaptureManager.stopCapture()
+        neatAudioManager.stopRecording()
         _state.update { it.copy(isListening = false) }
     }
 
@@ -265,15 +226,8 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(errorMessage = null) }
     }
 
-    /**
-     * Cleanup resources.
-     */
-    fun cleanup() {
-        audioCaptureManager.destroy()
-    }
-
     override fun onCleared() {
         super.onCleared()
-        cleanup()
+        neatAudioManager.destroy()
     }
 }

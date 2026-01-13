@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-41:12
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
 MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/e8ea5ef97826f6d4c0422c4e75604092/transformed/material3-release/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/b5b1a8fe06ec11f6a60a12bb1f593147/transformed/material-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/1dfaa80b83d22ea64150bd1e2effc555/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
@@ -77,8 +77,8 @@ ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:9:5-94
 	android:name
 		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:9:22-91
 application
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:11:5-39:19
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:11:5-39:19
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:12:5-42:19
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:12:5-42:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:23:5-33:19
@@ -98,53 +98,59 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/cache
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:19:9-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-35
 	android:label
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-41
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-41
 	android:fullBackupContent
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:9-54
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-54
 	android:roundIcon
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-54
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:19:9-54
 	tools:targetApi
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-29
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:22:9-29
 	android:icon
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-43
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-43
 	android:allowBackup
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:9-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-50
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-50
 	android:dataExtractionRules
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:14:9-65
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:9-65
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:12:9-48
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:9-48
+uses-library#no.neat.ndk
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:9-76
+	android:required
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:50-73
+	android:name
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:23-49
 activity#com.example.meetingbingo.MainActivity
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:23:9-31:20
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:26:9-34:20
 	android:exported
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:25:13-36
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:13-36
 	android:theme
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:26:13-54
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:29:13-54
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:13-41
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:27:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:27:13-30:29
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:30:13-33:29
 action#android.intent.action.MAIN
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:17-69
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:17-69
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:25-66
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:29:17-77
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:17-77
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:29:27-74
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:27-74
 service#com.example.meetingbingo.service.AudioCaptureService
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:33:9-37:63
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:9-40:63
 	android:enabled
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:13-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:38:13-35
 	android:exported
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:13-37
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:39:13-37
 	android:foregroundServiceType
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:37:13-60
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:40:13-60
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:34:13-56
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:37:13-56
 uses-sdk
 INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
