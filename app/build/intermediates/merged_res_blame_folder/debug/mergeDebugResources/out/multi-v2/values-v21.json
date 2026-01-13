@@ -4,7 +4,7 @@
             "outputFile": "com.example.meetingbingo.app-mergeDebugResources-43:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/res/values-v21/values-v21.xml",
+                    "source": "/home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

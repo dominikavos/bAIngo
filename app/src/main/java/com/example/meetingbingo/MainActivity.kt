@@ -1,8 +1,11 @@
 package com.example.meetingbingo
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,7 +16,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
-import com.example.meetingbingo.ui.screens.BingoScreen
+import com.example.meetingbingo.service.BingoOverlayService
+import com.example.meetingbingo.ui.screens.SetupScreen
 import com.example.meetingbingo.ui.theme.MeetingBingoTheme
 import com.example.meetingbingo.viewmodel.BingoViewModel
 
@@ -46,10 +50,28 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BingoScreen(viewModel = viewModel)
+                    SetupScreen(
+                        viewModel = viewModel,
+                        onStartOverlay = { meetingId, playerName, serverUrl ->
+                            startOverlayService(meetingId, playerName, serverUrl)
+                        },
+                        onStopOverlay = {
+                            stopOverlayService()
+                        },
+                        hasOverlayPermission = Settings.canDrawOverlays(this),
+                        onRequestOverlayPermission = {
+                            requestOverlayPermission()
+                        }
+                    )
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Update UI if overlay permission changed
+        viewModel.updateOverlayPermission(Settings.canDrawOverlays(this))
     }
 
     private fun checkAndRequestPermission() {
@@ -72,5 +94,48 @@ class MainActivity : ComponentActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
             }
         }
+    }
+
+    private fun requestOverlayPermission() {
+        val intent = Intent(
+            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:$packageName")
+        )
+        startActivity(intent)
+    }
+
+    private fun startOverlayService(meetingId: String, playerName: String, serverUrl: String) {
+        if (!Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, "Overlay permission required", Toast.LENGTH_SHORT).show()
+            requestOverlayPermission()
+            return
+        }
+
+        // Update ViewModel with game data
+        viewModel.setGameInfo(meetingId, playerName, serverUrl)
+
+        val intent = Intent(this, BingoOverlayService::class.java).apply {
+            action = BingoOverlayService.ACTION_START
+            putExtra(BingoOverlayService.EXTRA_MEETING_ID, meetingId)
+            putExtra(BingoOverlayService.EXTRA_PLAYER_NAME, playerName)
+            putExtra(BingoOverlayService.EXTRA_SERVER_URL, serverUrl)
+        }
+        startForegroundService(intent)
+
+        // Sync the words to the overlay
+        viewModel.syncWordsToOverlay()
+
+        Toast.makeText(this, "Bingo overlay started", Toast.LENGTH_SHORT).show()
+
+        // Minimize the app to show the overlay
+        moveTaskToBack(true)
+    }
+
+    private fun stopOverlayService() {
+        val intent = Intent(this, BingoOverlayService::class.java).apply {
+            action = BingoOverlayService.ACTION_STOP
+        }
+        startService(intent)
+        Toast.makeText(this, "Bingo overlay stopped", Toast.LENGTH_SHORT).show()
     }
 }

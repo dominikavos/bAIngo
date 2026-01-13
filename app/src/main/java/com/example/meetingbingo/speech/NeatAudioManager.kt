@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import no.neat.devkit.Audio
 import no.neat.devkit.NeatDevKit
+import no.neat.devkit.types.AudioDataCallback
 import kotlin.math.abs
 
 /**
@@ -36,6 +37,9 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
     val audioLevel: StateFlow<Float> = _audioLevel.asStateFlow()
 
     private var onAudioReceived: ((micLevel: Float, speakerLevel: Float, samples: Int) -> Unit)? = null
+
+    // Keep strong reference to callback to prevent GC
+    private var audioCallback: AudioDataCallback? = null
 
     init {
         val audio = neatDevKit?.audio()
@@ -77,27 +81,32 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
         sampleCount = 0
         callbackCount = 0
 
-        Log.e(TAG, "Calling audio.startAudioRecording with callback...")
-        val success = audio.startAudioRecording { microphone, loudspeaker, numSamples ->
-            Log.e(TAG, "CALLBACK RECEIVED! numSamples=$numSamples, mic=${microphone?.size}, speaker=${loudspeaker?.size}")
-            callbackCount++
-            sampleCount += numSamples
+        Log.e(TAG, "Calling audio.startAudioRecording with explicit callback object...")
 
-            // Calculate RMS levels for mic and speaker
-            val micLevel = calculateRmsLevel(microphone)
-            val speakerLevel = calculateRmsLevel(loudspeaker)
+        // Create and store callback to prevent GC
+        audioCallback = object : AudioDataCallback {
+            override fun onAudioData(microphone: FloatArray?, loudspeaker: FloatArray?, numSamples: Int) {
+                Log.e(TAG, "CALLBACK RECEIVED! numSamples=$numSamples, mic=${microphone?.size}, speaker=${loudspeaker?.size}")
+                callbackCount++
+                sampleCount += numSamples
 
-            _audioLevel.value = micLevel
+                // Calculate RMS levels for mic and speaker
+                val micLevel = calculateRmsLevel(microphone)
+                val speakerLevel = calculateRmsLevel(loudspeaker)
 
-            // Update status every 10 callbacks (~100ms at 48kHz with 480 samples)
-            if (callbackCount % 10 == 0) {
+                _audioLevel.value = micLevel
+
+                // Log every callback for debugging
                 val statusMsg = "Callbacks: $callbackCount, Samples: $sampleCount, Mic: %.4f, Speaker: %.4f".format(micLevel, speakerLevel)
                 Log.e(TAG, statusMsg)
                 _audioStatus.value = statusMsg
-            }
 
-            onAudioReceived?.invoke(micLevel, speakerLevel, numSamples)
+                onAudioReceived?.invoke(micLevel, speakerLevel, numSamples)
+            }
         }
+
+        Log.e(TAG, "Callback object created: $audioCallback")
+        val success = audio.startAudioRecording(audioCallback!!)
 
         if (success) {
             isRecording = true

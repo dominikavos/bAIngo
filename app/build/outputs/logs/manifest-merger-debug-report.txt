@@ -1,55 +1,55 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-44:12
-MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/e8ea5ef97826f6d4c0422c4e75604092/transformed/material3-release/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/b5b1a8fe06ec11f6a60a12bb1f593147/transformed/material-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/1dfaa80b83d22ea64150bd1e2effc555/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/06d9ddff338f129f3524323f85d385df/transformed/material-icons-extended-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9470b2de31e256c395ba3b76ad6e554b/transformed/material-ripple-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/31c41cdf1267d4d29125196ec64397cb/transformed/animation-core-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/140915190102a0fcfa1c18b159138d70/transformed/animation-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/76e30d5f9d6bb8d313c98b53ab111601/transformed/foundation-layout-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c60e19e6be8c9109406b0e599aaca5d2/transformed/foundation-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e9caa62a45e6d6413b7a0794ecdd5971/transformed/ui-tooling-data-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ee4a6ce248d735ac441f1f66220944ab/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/38b1bf54a4b5c3a03d3c356aa632b03f/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0a328a2fc195213d0fda21a0d291b9bd/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0077b3d78798d5290fcfe6a857de98b0/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0c9f2395b902bd190243568080b8daab/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/182c8ba6a85abc532e1b8f4b1c501447/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:17:1-35:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/31c08a3b27a59249085b063d4afd0ac2/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/ef699947045fd05f2975745782e4eaa0/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/7f3bd9c6c0cefaa9caf7a86cecd11cfc/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/254a1e6df379ad5e8fca81a59e980b90/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/37f7d15131cdb7316f481909a3d2eaaf/transformed/lifecycle-runtime-release/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/3024445fc61b8ad292ea1036c51a37b6/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/565da4f35e70ccc682f75cdb4f29d875/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/2a132f53676e1cce4f3a312ef0fe4ec4/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/8f706fa62dc737e62f0d485d83b1fdb8/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3db34e0345f1c49319544df50f001923/transformed/ui-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:17:1-28:12
-MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/979076c0860259cd09e84d2a85229039/transformed/activity-compose-1.9.0/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/e895a06c40faad2845e8c38a24ee210f/transformed/activity-ktx-1.9.0/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/eea322d40c1eed5784326d1454001d4e/transformed/activity-1.9.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/ea02ddc5b806230c5b26f67078cdb9fe/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:17:1-30:12
-MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/4b1a2e9576241be5683643e309478b22/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
-MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/85a821f066f0f6c4110f97ceb943b9b9/transformed/core-ktx-1.13.1/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/19699fe496e4eecc211b62ec08fc3990/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/43349fbe53e2925dfeaa6ee37755466f/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9796ac2764db274ca48cc0664f01241e/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/f2cd5ced60e79968ff7cdd4cb8273154/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/bf199552b116431e0b50b09a8d2bc03c/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
-MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/65983f98798b09061d6bd9e9dd2c62e8/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/fc6c182f84f5f2d6f67b0d6196111c8a/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
-MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/a793679ed30120e8d4e647452a554569/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:2:1-7:12
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:2:1-58:12
+MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/fb43aa88002b895cee3e7c1ee0bfb65d/transformed/material3-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/f8d26a229b31041d6553c35025d94fa7/transformed/material-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3e23027bcb1500acb553d8d45ee9d119/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2bd78debde5b640b175ef91ffd083ace/transformed/material-icons-extended-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/7699c81ab37ce29aa9b86896b06abe5d/transformed/material-ripple-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/945532cc4408465681052448ef1b1e34/transformed/animation-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/8078a4fce13d8a2523013574aaf7e713/transformed/animation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11170e458e0e77b5b93e17288f1568be/transformed/foundation-layout-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/5cea03c807ec838f8957f7cf1e34db9d/transformed/foundation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ab97f0359d0f8d2a7cd388bd2fd4f979/transformed/ui-tooling-data-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/a6a25d2882e5cd5da9292199e5d6955c/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/08e253b11d20bd4657c1d912baa5d844/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/af43ddcf0682b2da7bf31378fb158ea1/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/486f0187bd3b28c1926c37b80ab6f555/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11bb556e99fdc672e357f132d0491d75/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2c4c5905fab7e952965d5333057caf48/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/5eadeac156568a92af6f1a51debd357b/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/d0bd46c1c5e8849c1c76fdd706f25fab/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/66ce7517123b0d5b3bffc079507bf649/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/daafa127e4dce44d78f41a05f1f8f8c8/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/f62f4f3305c9fcc0ff86ff7891681388/transformed/lifecycle-runtime-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/474621df2308827a173beb10c861e6eb/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/e387992ed1f90c3da7dcbc0372534b0f/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/0da5326f9d142a07b0516b1ba2a47726/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/b83c27e2cd70df13c01cd23f27ce0e75/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/46c5e37f57c492286b88f8d1774997d8/transformed/ui-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/9e67ef508865d1c5ddccb3ebe79fa9d6/transformed/activity-compose-1.9.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/ea3cec761eb52299f48459a8f5e13f90/transformed/activity-ktx-1.9.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/ec3e1135c61ec6a4361a68114489267a/transformed/activity-1.9.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/b3552427877b53cb928875320c942a82/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/b1e24b58b293c93586cc47357f0280de/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/a7c84747b6f4e30ecae833af6f4e8f3c/transformed/core-ktx-1.13.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/898e63058d1649735a4ea5545685328f/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c8bcf6b6d4610cdd2c8f63e50311ec85/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e6c9679346856557ade262ebe651a5d9/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/56683610a15db696381517ae4d9cb254/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/f682ae425e53c14d6722fdfdd404d992/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/6025d95b238de7ac6a24987cc0be199b/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/e44ff2bd910f4e1151f620b9aea82805/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/8c2236128624e8f888ee6faa87820b44/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:2:1-7:12
 	package
 		INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
 	android:versionName
@@ -76,274 +76,300 @@ uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION
 ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:9:5-94
 	android:name
 		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:9:22-91
+uses-permission#android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:10:5-89
+	android:name
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:10:22-86
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:5-78
+	android:name
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:22-75
 application
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:12:5-42:19
-INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:12:5-42:19
-MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:23:5-33:19
-MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
-MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
-MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:28:5-89
-MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:28:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/bf199552b116431e0b50b09a8d2bc03c/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/bf199552b116431e0b50b09a8d2bc03c/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:5-56:19
+INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:5-56:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/f682ae425e53c14d6722fdfdd404d992/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/f682ae425e53c14d6722fdfdd404d992/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
 	android:extractNativeLibs
 		INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-41
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-41
 	android:fullBackupContent
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-54
-	android:roundIcon
 		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:19:9-54
+	android:roundIcon
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:22:9-54
 	tools:targetApi
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:22:9-29
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:26:9-29
 	android:icon
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-43
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-43
 	android:allowBackup
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:14:9-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-35
 	android:theme
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-50
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:9-50
 	android:dataExtractionRules
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:9-65
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-65
+	android:usesCleartextTraffic
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:25:9-44
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:9-48
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-48
 uses-library#no.neat.ndk
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:9-76
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:9-76
 	android:required
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:50-73
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:50-73
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:23-49
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:23-49
 activity#com.example.meetingbingo.MainActivity
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:26:9-34:20
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:30:9-38:20
 	android:exported
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:13-36
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:13-36
 	android:theme
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:29:13-54
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:33:13-54
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:27:13-41
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:30:13-33:29
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:34:13-37:29
 action#android.intent.action.MAIN
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:17-69
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:17-69
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:25-66
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:17-77
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:17-77
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:27-74
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:27-74
 service#com.example.meetingbingo.service.AudioCaptureService
-ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:9-40:63
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:40:9-44:63
 	android:enabled
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:38:13-35
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:42:13-35
 	android:exported
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:39:13-37
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:43:13-37
 	android:foregroundServiceType
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:40:13-60
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:44:13-60
 	android:name
-		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:37:13-56
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:41:13-56
+service#com.example.meetingbingo.service.BingoOverlayService
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:46:9-54:19
+	android:enabled
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:48:13-35
+	android:exported
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:49:13-37
+	android:foregroundServiceType
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:50:13-55
+	android:name
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:47:13-56
+property#android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE
+ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:51:13-53:43
+	android:value
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:53:17-40
+	android:name
+		ADDED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml:52:17-76
 uses-sdk
 INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
 INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
-MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/e8ea5ef97826f6d4c0422c4e75604092/transformed/material3-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/e8ea5ef97826f6d4c0422c4e75604092/transformed/material3-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/b5b1a8fe06ec11f6a60a12bb1f593147/transformed/material-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/b5b1a8fe06ec11f6a60a12bb1f593147/transformed/material-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/1dfaa80b83d22ea64150bd1e2effc555/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/1dfaa80b83d22ea64150bd1e2effc555/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/06d9ddff338f129f3524323f85d385df/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/06d9ddff338f129f3524323f85d385df/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9470b2de31e256c395ba3b76ad6e554b/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9470b2de31e256c395ba3b76ad6e554b/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/31c41cdf1267d4d29125196ec64397cb/transformed/animation-core-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/31c41cdf1267d4d29125196ec64397cb/transformed/animation-core-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/140915190102a0fcfa1c18b159138d70/transformed/animation-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/140915190102a0fcfa1c18b159138d70/transformed/animation-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/76e30d5f9d6bb8d313c98b53ab111601/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/76e30d5f9d6bb8d313c98b53ab111601/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c60e19e6be8c9109406b0e599aaca5d2/transformed/foundation-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c60e19e6be8c9109406b0e599aaca5d2/transformed/foundation-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e9caa62a45e6d6413b7a0794ecdd5971/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e9caa62a45e6d6413b7a0794ecdd5971/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ee4a6ce248d735ac441f1f66220944ab/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ee4a6ce248d735ac441f1f66220944ab/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/38b1bf54a4b5c3a03d3c356aa632b03f/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/38b1bf54a4b5c3a03d3c356aa632b03f/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0a328a2fc195213d0fda21a0d291b9bd/transformed/ui-util-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0a328a2fc195213d0fda21a0d291b9bd/transformed/ui-util-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0077b3d78798d5290fcfe6a857de98b0/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0077b3d78798d5290fcfe6a857de98b0/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0c9f2395b902bd190243568080b8daab/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0c9f2395b902bd190243568080b8daab/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/182c8ba6a85abc532e1b8f4b1c501447/transformed/ui-text-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/182c8ba6a85abc532e1b8f4b1c501447/transformed/ui-text-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
-MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:21:5-44
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:21:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/31c08a3b27a59249085b063d4afd0ac2/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/31c08a3b27a59249085b063d4afd0ac2/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/ef699947045fd05f2975745782e4eaa0/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/ef699947045fd05f2975745782e4eaa0/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/7f3bd9c6c0cefaa9caf7a86cecd11cfc/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/7f3bd9c6c0cefaa9caf7a86cecd11cfc/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/254a1e6df379ad5e8fca81a59e980b90/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/254a1e6df379ad5e8fca81a59e980b90/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/37f7d15131cdb7316f481909a3d2eaaf/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/37f7d15131cdb7316f481909a3d2eaaf/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/3024445fc61b8ad292ea1036c51a37b6/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/3024445fc61b8ad292ea1036c51a37b6/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/565da4f35e70ccc682f75cdb4f29d875/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/565da4f35e70ccc682f75cdb4f29d875/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/2a132f53676e1cce4f3a312ef0fe4ec4/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/2a132f53676e1cce4f3a312ef0fe4ec4/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/8f706fa62dc737e62f0d485d83b1fdb8/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/8f706fa62dc737e62f0d485d83b1fdb8/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3db34e0345f1c49319544df50f001923/transformed/ui-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3db34e0345f1c49319544df50f001923/transformed/ui-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
-MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/979076c0860259cd09e84d2a85229039/transformed/activity-compose-1.9.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/979076c0860259cd09e84d2a85229039/transformed/activity-compose-1.9.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/e895a06c40faad2845e8c38a24ee210f/transformed/activity-ktx-1.9.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/e895a06c40faad2845e8c38a24ee210f/transformed/activity-ktx-1.9.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/eea322d40c1eed5784326d1454001d4e/transformed/activity-1.9.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/eea322d40c1eed5784326d1454001d4e/transformed/activity-1.9.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/ea02ddc5b806230c5b26f67078cdb9fe/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/ea02ddc5b806230c5b26f67078cdb9fe/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/4b1a2e9576241be5683643e309478b22/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
-MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/4b1a2e9576241be5683643e309478b22/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
-MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/85a821f066f0f6c4110f97ceb943b9b9/transformed/core-ktx-1.13.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/85a821f066f0f6c4110f97ceb943b9b9/transformed/core-ktx-1.13.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/19699fe496e4eecc211b62ec08fc3990/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/19699fe496e4eecc211b62ec08fc3990/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/43349fbe53e2925dfeaa6ee37755466f/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/43349fbe53e2925dfeaa6ee37755466f/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9796ac2764db274ca48cc0664f01241e/transformed/runtime-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/9796ac2764db274ca48cc0664f01241e/transformed/runtime-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/f2cd5ced60e79968ff7cdd4cb8273154/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/f2cd5ced60e79968ff7cdd4cb8273154/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/bf199552b116431e0b50b09a8d2bc03c/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/bf199552b116431e0b50b09a8d2bc03c/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
-MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/65983f98798b09061d6bd9e9dd2c62e8/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/65983f98798b09061d6bd9e9dd2c62e8/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/fc6c182f84f5f2d6f67b0d6196111c8a/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/fc6c182f84f5f2d6f67b0d6196111c8a/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
-MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/a793679ed30120e8d4e647452a554569/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:5:5-44
-MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/a793679ed30120e8d4e647452a554569/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/fb43aa88002b895cee3e7c1ee0bfb65d/transformed/material3-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3-android:1.2.1] /home/dominik/.gradle/caches/transforms-4/fb43aa88002b895cee3e7c1ee0bfb65d/transformed/material3-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/f8d26a229b31041d6553c35025d94fa7/transformed/material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/f8d26a229b31041d6553c35025d94fa7/transformed/material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3e23027bcb1500acb553d8d45ee9d119/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/3e23027bcb1500acb553d8d45ee9d119/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2bd78debde5b640b175ef91ffd083ace/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2bd78debde5b640b175ef91ffd083ace/transformed/material-icons-extended-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/7699c81ab37ce29aa9b86896b06abe5d/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/7699c81ab37ce29aa9b86896b06abe5d/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/945532cc4408465681052448ef1b1e34/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/945532cc4408465681052448ef1b1e34/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/8078a4fce13d8a2523013574aaf7e713/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/8078a4fce13d8a2523013574aaf7e713/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11170e458e0e77b5b93e17288f1568be/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11170e458e0e77b5b93e17288f1568be/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/5cea03c807ec838f8957f7cf1e34db9d/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/5cea03c807ec838f8957f7cf1e34db9d/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ab97f0359d0f8d2a7cd388bd2fd4f979/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/ab97f0359d0f8d2a7cd388bd2fd4f979/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/a6a25d2882e5cd5da9292199e5d6955c/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/a6a25d2882e5cd5da9292199e5d6955c/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/08e253b11d20bd4657c1d912baa5d844/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/08e253b11d20bd4657c1d912baa5d844/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/af43ddcf0682b2da7bf31378fb158ea1/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/af43ddcf0682b2da7bf31378fb158ea1/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/486f0187bd3b28c1926c37b80ab6f555/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/486f0187bd3b28c1926c37b80ab6f555/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11bb556e99fdc672e357f132d0491d75/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/11bb556e99fdc672e357f132d0491d75/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2c4c5905fab7e952965d5333057caf48/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/2c4c5905fab7e952965d5333057caf48/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/5eadeac156568a92af6f1a51debd357b/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.3] /home/dominik/.gradle/caches/transforms-4/5eadeac156568a92af6f1a51debd357b/transformed/lifecycle-livedata-core-2.8.3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/d0bd46c1c5e8849c1c76fdd706f25fab/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /home/dominik/.gradle/caches/transforms-4/d0bd46c1c5e8849c1c76fdd706f25fab/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/66ce7517123b0d5b3bffc079507bf649/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /home/dominik/.gradle/caches/transforms-4/66ce7517123b0d5b3bffc079507bf649/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/daafa127e4dce44d78f41a05f1f8f8c8/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/daafa127e4dce44d78f41a05f1f8f8c8/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/f62f4f3305c9fcc0ff86ff7891681388/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/f62f4f3305c9fcc0ff86ff7891681388/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/474621df2308827a173beb10c861e6eb/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3] /home/dominik/.gradle/caches/transforms-4/474621df2308827a173beb10c861e6eb/transformed/lifecycle-viewmodel-ktx-2.8.3/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/e387992ed1f90c3da7dcbc0372534b0f/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.3] /home/dominik/.gradle/caches/transforms-4/e387992ed1f90c3da7dcbc0372534b0f/transformed/lifecycle-viewmodel-savedstate-2.8.3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/0da5326f9d142a07b0516b1ba2a47726/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/0da5326f9d142a07b0516b1ba2a47726/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/b83c27e2cd70df13c01cd23f27ce0e75/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.3] /home/dominik/.gradle/caches/transforms-4/b83c27e2cd70df13c01cd23f27ce0e75/transformed/lifecycle-viewmodel-compose-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/46c5e37f57c492286b88f8d1774997d8/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/46c5e37f57c492286b88f8d1774997d8/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/9e67ef508865d1c5ddccb3ebe79fa9d6/transformed/activity-compose-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-compose:1.9.0] /home/dominik/.gradle/caches/transforms-4/9e67ef508865d1c5ddccb3ebe79fa9d6/transformed/activity-compose-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/ea3cec761eb52299f48459a8f5e13f90/transformed/activity-ktx-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.0] /home/dominik/.gradle/caches/transforms-4/ea3cec761eb52299f48459a8f5e13f90/transformed/activity-ktx-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/ec3e1135c61ec6a4361a68114489267a/transformed/activity-1.9.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.9.0] /home/dominik/.gradle/caches/transforms-4/ec3e1135c61ec6a4361a68114489267a/transformed/activity-1.9.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/b3552427877b53cb928875320c942a82/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /home/dominik/.gradle/caches/transforms-4/b3552427877b53cb928875320c942a82/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/b1e24b58b293c93586cc47357f0280de/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /home/dominik/.gradle/caches/transforms-4/b1e24b58b293c93586cc47357f0280de/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/a7c84747b6f4e30ecae833af6f4e8f3c/transformed/core-ktx-1.13.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.13.1] /home/dominik/.gradle/caches/transforms-4/a7c84747b6f4e30ecae833af6f4e8f3c/transformed/core-ktx-1.13.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/898e63058d1649735a4ea5545685328f/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/dominik/.gradle/caches/transforms-4/898e63058d1649735a4ea5545685328f/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c8bcf6b6d4610cdd2c8f63e50311ec85/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/c8bcf6b6d4610cdd2c8f63e50311ec85/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e6c9679346856557ade262ebe651a5d9/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/e6c9679346856557ade262ebe651a5d9/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/56683610a15db696381517ae4d9cb254/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/dominik/.gradle/caches/transforms-4/56683610a15db696381517ae4d9cb254/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/f682ae425e53c14d6722fdfdd404d992/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/dominik/.gradle/caches/transforms-4/f682ae425e53c14d6722fdfdd404d992/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/6025d95b238de7ac6a24987cc0be199b/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/dominik/.gradle/caches/transforms-4/6025d95b238de7ac6a24987cc0be199b/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/e44ff2bd910f4e1151f620b9aea82805/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /home/dominik/.gradle/caches/transforms-4/e44ff2bd910f4e1151f620b9aea82805/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/8c2236128624e8f888ee6faa87820b44/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:5:5-44
+MERGED from [no.neat:devkit:0.51.0-2044532075] /home/dominik/.gradle/caches/transforms-4/8c2236128624e8f888ee6faa87820b44/transformed/devkit-0.51.0-2044532075/AndroidManifest.xml:5:5-44
 	android:targetSdkVersion
 		INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /home/dominik/bAIngo/app/src/main/AndroidManifest.xml
 provider#androidx.startup.InitializationProvider
-ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
-MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/cd2d4c39b2e3052efbd6fab4679e5292/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /home/dominik/.gradle/caches/transforms-4/7b690e2fe4f39b87ab288cb5405bb3d9/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
 	tools:node
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:28:13-31
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:28:13-31
 	android:authorities
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
 	android:exported
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
 meta-data#androidx.emoji2.text.EmojiCompatInitializer
-ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
 	android:value
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
 	android:name
-		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/94e2e3b7eec0776a4262a6a8a6272e2f/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
 meta-data#androidx.lifecycle.ProcessLifecycleInitializer
-ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
+ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
 	android:value
-		ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
 	android:name
-		ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/ec1a084c86feebea0c5167a93f0e11ec/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
 activity#androidx.compose.ui.tooling.PreviewActivity
-ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
 	android:exported
-		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
 	android:name
-		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/552ba5400ca2dd92c030758001a19d42/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
 permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 	android:name
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 permission#com.example.meetingbingo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 	android:name
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
 	android:name
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 uses-permission#com.example.meetingbingo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
-ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
 	android:name
-		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/5ffda89ebda3585cecfee3f142f9b4be/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+		ADDED from [androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 meta-data#androidx.profileinstaller.ProfileInstallerInitializer
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
 	android:value
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
 receiver#androidx.profileinstaller.ProfileInstallReceiver
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
 	android:enabled
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
 	android:exported
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
 	android:permission
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
 	android:directBootAware
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
 intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
 action#androidx.profileinstaller.action.INSTALL_PROFILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
 intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
 action#androidx.profileinstaller.action.SKIP_FILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
 intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
 action#androidx.profileinstaller.action.SAVE_PROFILE
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
 intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
 action#androidx.profileinstaller.action.BENCHMARK_OPERATION
-ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
 	android:name
-		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/b291d895e090a84b6c7e208e41384fad/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92

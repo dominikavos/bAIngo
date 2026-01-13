@@ -8,6 +8,7 @@ import com.example.meetingbingo.MeetingBingoApplication
 import com.example.meetingbingo.data.MeetingWords
 import com.example.meetingbingo.model.BingoCell
 import com.example.meetingbingo.model.BingoState
+import com.example.meetingbingo.service.BingoOverlayService
 import com.example.meetingbingo.speech.NeatAudioManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +29,15 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
     private val _state = MutableStateFlow(BingoState())
     val state: StateFlow<BingoState> = _state.asStateFlow()
 
+    private val _hasOverlayPermission = MutableStateFlow(false)
+    val hasOverlayPermission: StateFlow<Boolean> = _hasOverlayPermission.asStateFlow()
+
     private val neatAudioManager = NeatAudioManager(MeetingBingoApplication.neatDevKit)
+
+    // Game info for overlay
+    private var meetingId: String = "1234"
+    private var playerName: String = "Player"
+    private var serverUrl: String = "http://10.47.6.1:8080"
 
     init {
         Log.d(TAG, "ViewModel initialized")
@@ -65,6 +74,38 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    /**
+     * Update overlay permission status.
+     */
+    fun updateOverlayPermission(hasPermission: Boolean) {
+        _hasOverlayPermission.value = hasPermission
+    }
+
+    /**
+     * Set game info for the overlay.
+     */
+    fun setGameInfo(meetingId: String, playerName: String, serverUrl: String) {
+        this.meetingId = meetingId
+        this.playerName = playerName
+        this.serverUrl = serverUrl
+    }
+
+    /**
+     * Sync the current words to the overlay service.
+     */
+    fun syncWordsToOverlay() {
+        val grid = _state.value.getGrid()
+        val words = grid.map { row -> row.map { cell -> cell.word } }
+        val marked = grid.map { row -> row.map { cell -> cell.isMarked } }
+
+        // Update overlay state
+        BingoOverlayService.overlayState = BingoOverlayService.overlayState.copy(
+            myWords = words,
+            myMarkedCells = marked,
+            myHasBingo = _state.value.hasBingo
+        )
     }
 
     /**
@@ -107,6 +148,9 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
                 errorMessage = null
             )
         }
+
+        // Also update overlay if running
+        syncWordsToOverlay()
     }
 
     /**
@@ -152,14 +196,18 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
             val newState = currentState.copy(cells = updatedCells)
-            newState.copy(hasBingo = checkForBingo(newState))
+            val hasBingo = checkForBingo(newState)
+            newState.copy(hasBingo = hasBingo)
         }
+
+        // Sync to overlay
+        syncWordsToOverlay()
     }
 
     /**
      * Process recognized text and mark matching cells.
      */
-    private fun processRecognizedText(text: String) {
+    fun processRecognizedText(text: String) {
         Log.d(TAG, "processRecognizedText: $text")
         val lowerText = text.lowercase()
 
@@ -184,6 +232,9 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
             )
             newState.copy(hasBingo = checkForBingo(newState))
         }
+
+        // Sync to overlay
+        syncWordsToOverlay()
     }
 
     /**

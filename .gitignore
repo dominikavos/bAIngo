@@ -28,3 +28,6 @@ replay_pid*
 
 app/build/
 local.properties
+
+**/venv/
+**/__pycache__/
