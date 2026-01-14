@@ -223,6 +223,13 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                 Log.d(TAG, "Joined game with ${response.players.size} other players")
                 overlayState = overlayState.copy(currentMeetingId = meetingId)
 
+                // Set player ID on transcriber so it knows who we are
+                val playerId = apiClient?.getPlayerId()
+                if (playerId != null) {
+                    whisperTranscriber?.setPlayerId(playerId)
+                    Log.d(TAG, "Set player ID on transcriber: $playerId")
+                }
+
                 // Send our bingo words to the server
                 val words = overlayState.myWords
                 if (words.isNotEmpty()) {
@@ -355,6 +362,13 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                 // Join new game
                 apiClient?.joinGame(newMeetingId, currentPlayerName)?.onSuccess { response ->
                     Log.d(TAG, "Joined new meeting with ${response.players.size} other players")
+
+                    // Set player ID on transcriber so it knows who we are
+                    val playerId = apiClient?.getPlayerId()
+                    if (playerId != null) {
+                        whisperTranscriber?.setPlayerId(playerId)
+                        Log.d(TAG, "Set player ID on transcriber: $playerId")
+                    }
 
                     // Send our bingo words to the server for the new meeting
                     val words = overlayState.myWords

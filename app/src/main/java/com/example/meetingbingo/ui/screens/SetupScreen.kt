@@ -146,8 +146,8 @@ fun SetupScreen(
                     OutlinedTextField(
                         value = meetingId,
                         onValueChange = { meetingId = it },
-                        label = { Text(if (meetingId.isEmpty()) "Meeting ID (detect via overlay)" else "Meeting ID") },
-                        placeholder = { Text("Use detect button in overlay") },
+                        label = { Text("Meeting ID") },
+                        placeholder = { Text("Enter meeting ID or detect via overlay") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
@@ -229,20 +229,20 @@ fun SetupScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
+                        // Start with meeting ID - requires meeting ID to be entered
                         Button(
                             onClick = {
-                                // Use "pending" as placeholder if no meeting ID yet
-                                val effectiveMeetingId = meetingId.ifBlank { "pending" }
-                                onStartOverlay(effectiveMeetingId, playerName, serverUrl)
+                                viewModel.syncWordsToOverlay()
+                                onStartOverlay(meetingId, playerName, serverUrl)
                                 isOverlayRunning = true
                             },
-                            enabled = hasOverlayPermission && !isOverlayRunning && playerName.isNotBlank(),
+                            enabled = hasOverlayPermission && !isOverlayRunning && playerName.isNotBlank() && meetingId.isNotBlank(),
                             colors = ButtonDefaults.buttonColors(containerColor = BingoGreen),
                             modifier = Modifier.weight(1f)
                         ) {
                             Icon(Icons.Default.PlayArrow, contentDescription = null)
                             Spacer(modifier = Modifier.size(4.dp))
-                            Text("Start")
+                            Text("Join")
                         }
 
                         Button(
@@ -257,6 +257,29 @@ fun SetupScreen(
                             Icon(Icons.Default.Stop, contentDescription = null)
                             Spacer(modifier = Modifier.size(4.dp))
                             Text("Stop")
+                        }
+                    }
+
+                    // Alternative: Start overlay only (can detect meeting ID later)
+                    if (!isOverlayRunning && meetingId.isBlank()) {
+                        Text(
+                            text = "Or start overlay first and detect meeting ID later:",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.Gray
+                        )
+                        Button(
+                            onClick = {
+                                viewModel.syncWordsToOverlay()
+                                onStartOverlay("pending", playerName, serverUrl)
+                                isOverlayRunning = true
+                            },
+                            enabled = hasOverlayPermission && playerName.isNotBlank(),
+                            colors = ButtonDefaults.buttonColors(containerColor = BingoOrange),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(Icons.Default.PlayArrow, contentDescription = null)
+                            Spacer(modifier = Modifier.size(4.dp))
+                            Text("Start (detect later)")
                         }
                     }
                 }

@@ -520,13 +520,15 @@ def find_matching_words(transcript: str, words: List[List[str]]) -> List[tuple]:
 @app.post("/api/transcribe")
 async def transcribe_audio(
     audio: UploadFile = File(...),
-    meeting_id: str = Form(...)
+    meeting_id: str = Form(...),
+    player_id: str = Form(...)
 ):
     """
-    Transcribe audio and auto-mark matching bingo cells for all players in the room.
-    Accepts WAV audio file.
+    Transcribe audio and auto-mark matching bingo cells for the submitting player ONLY.
+    The player who submits audio is hearing others speak, so we only mark their cells.
+    This prevents players from marking their own words by speaking them.
     """
-    print(f"[TRANSCRIBE] Received audio for meeting_id={meeting_id}, size={audio.size if hasattr(audio, 'size') else 'unknown'}")
+    print(f"[TRANSCRIBE] Received audio for meeting_id={meeting_id}, player_id={player_id}, size={audio.size if hasattr(audio, 'size') else 'unknown'}")
 
     # Read audio data
     audio_data = await audio.read()
@@ -546,12 +548,14 @@ async def transcribe_audio(
         transcript = " ".join(segment.text for segment in segments).strip()
         print(f"[TRANSCRIBE] Result: '{transcript}'")
 
-        # If room exists, check for matching words and mark cells
+        # If room exists, check for matching words and mark cells for the submitting player ONLY
         marked_cells_info = []
         if meeting_id in game_rooms:
             room = game_rooms[meeting_id]
 
-            for player_id, player in room.players.items():
+            # Only mark cells for the player who submitted the audio
+            if player_id in room.players:
+                player = room.players[player_id]
                 matches = find_matching_words(transcript, player.words)
 
                 for row, col in matches:
@@ -571,15 +575,14 @@ async def transcribe_audio(
                 if matches:
                     player.has_bingo = check_bingo(player.marked_cells)
 
-            # Broadcast transcript and updates to all players
-            await broadcast_to_room(room, {
-                "type": "transcript",
-                "text": transcript,
-                "marked_cells": marked_cells_info
-            })
+                # Broadcast transcript to all players (so they can see what was heard)
+                await broadcast_to_room(room, {
+                    "type": "transcript",
+                    "text": transcript,
+                    "marked_cells": marked_cells_info
+                })
 
-            # Broadcast updated player states
-            for player_id, player in room.players.items():
+                # Broadcast updated state for the player who got cells marked
                 await broadcast_to_room(room, {
                     "type": "player_updated",
                     "player": player.to_dict()
@@ -591,6 +594,8 @@ async def transcribe_audio(
                         "player_id": player_id,
                         "player_name": player.player_name
                     })
+            else:
+                print(f"[TRANSCRIBE] Player {player_id} not found in room {meeting_id}")
 
         return {
             "status": "ok",

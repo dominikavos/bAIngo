@@ -18,15 +18,25 @@ import java.util.concurrent.TimeUnit
 /**
  * Transcribes audio using a local faster-whisper server.
  * Buffers audio samples and sends them periodically for transcription.
- * The server also handles auto-marking bingo cells for all players.
+ * The server marks bingo cells only for the player who submitted the audio.
  */
 class WhisperTranscriber(
     private val serverUrl: String,
-    private val meetingId: String
+    private val meetingId: String,
+    private var playerId: String = ""
 ) {
 
     init {
         Log.d(TAG, "WhisperTranscriber initialized. Server: $serverUrl, Meeting: $meetingId")
+    }
+
+    /**
+     * Set the player ID for this transcriber.
+     * Must be called after joining a game to get the player ID.
+     */
+    fun setPlayerId(id: String) {
+        Log.d(TAG, "Player ID set to: $id")
+        playerId = id
     }
 
     companion object {
@@ -135,8 +145,13 @@ class WhisperTranscriber(
     }
 
     private suspend fun sendToServer(wavData: ByteArray): String = withContext(Dispatchers.IO) {
+        if (playerId.isBlank()) {
+            Log.w(TAG, "Player ID not set, skipping transcription")
+            return@withContext ""
+        }
+
         val transcribeUrl = "$serverUrl/api/transcribe"
-        Log.d(TAG, "Sending audio to: $transcribeUrl")
+        Log.d(TAG, "Sending audio to: $transcribeUrl (player: $playerId)")
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -146,6 +161,7 @@ class WhisperTranscriber(
                 wavData.toRequestBody("audio/wav".toMediaType())
             )
             .addFormDataPart("meeting_id", meetingId)
+            .addFormDataPart("player_id", playerId)
             .build()
 
         val request = Request.Builder()
