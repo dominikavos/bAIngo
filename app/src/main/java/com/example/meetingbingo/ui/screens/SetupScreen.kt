@@ -43,6 +43,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.LaunchedEffect
+import com.example.meetingbingo.service.BingoAccessibilityService
+import com.example.meetingbingo.service.BingoOverlayService
 import com.example.meetingbingo.ui.components.BingoCard
 import com.example.meetingbingo.ui.theme.BingoGreen
 import com.example.meetingbingo.ui.theme.BingoOrange
@@ -61,10 +64,20 @@ fun SetupScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    var meetingId by remember { mutableStateOf("1234") }
+    // Observe detected meeting ID from overlay service
+    val detectedMeetingId by BingoAccessibilityService.extractedMeetingId.collectAsState()
+
+    var meetingId by remember { mutableStateOf("") }
     var playerName by remember { mutableStateOf("Player") }
     var serverUrl by remember { mutableStateOf("http://10.47.6.1:8080") }
     var isOverlayRunning by remember { mutableStateOf(false) }
+
+    // Update meeting ID field when a new one is detected
+    LaunchedEffect(detectedMeetingId) {
+        detectedMeetingId?.let {
+            meetingId = it
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -130,7 +143,8 @@ fun SetupScreen(
                     OutlinedTextField(
                         value = meetingId,
                         onValueChange = { meetingId = it },
-                        label = { Text("Meeting ID") },
+                        label = { Text(if (meetingId.isEmpty()) "Meeting ID (detect via overlay)" else "Meeting ID") },
+                        placeholder = { Text("Use detect button in overlay") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
@@ -214,10 +228,12 @@ fun SetupScreen(
                     ) {
                         Button(
                             onClick = {
-                                onStartOverlay(meetingId, playerName, serverUrl)
+                                // Use "pending" as placeholder if no meeting ID yet
+                                val effectiveMeetingId = meetingId.ifBlank { "pending" }
+                                onStartOverlay(effectiveMeetingId, playerName, serverUrl)
                                 isOverlayRunning = true
                             },
-                            enabled = hasOverlayPermission && !isOverlayRunning && meetingId.isNotBlank() && playerName.isNotBlank(),
+                            enabled = hasOverlayPermission && !isOverlayRunning && playerName.isNotBlank(),
                             colors = ButtonDefaults.buttonColors(containerColor = BingoGreen),
                             modifier = Modifier.weight(1f)
                         ) {

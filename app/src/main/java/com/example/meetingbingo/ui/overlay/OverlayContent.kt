@@ -89,11 +89,13 @@ fun FabButtons(
         }
 
         // Detect Meeting ID button - color based on status
-        val detectButtonColor = when (state.meetingIdDetectionStatus) {
-            BingoOverlayService.MeetingIdDetectionStatus.NOT_ATTEMPTED -> Color.Gray
-            BingoOverlayService.MeetingIdDetectionStatus.DETECTING -> BingoOrange
-            BingoOverlayService.MeetingIdDetectionStatus.SUCCESS -> BingoGreen
-            BingoOverlayService.MeetingIdDetectionStatus.FAILED -> BingoRed
+        // Stay green if we have a detected meeting ID, even after restart
+        val hasDetectedMeetingId = state.detectedMeetingId != null
+        val detectButtonColor = when {
+            hasDetectedMeetingId -> BingoGreen
+            state.meetingIdDetectionStatus == BingoOverlayService.MeetingIdDetectionStatus.DETECTING -> BingoOrange
+            state.meetingIdDetectionStatus == BingoOverlayService.MeetingIdDetectionStatus.FAILED -> BingoRed
+            else -> Color.Gray
         }
         FloatingActionButton(
             onClick = { onDetectMeeting?.invoke() },

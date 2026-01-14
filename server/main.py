@@ -61,13 +61,43 @@ class GameRoom:
 game_rooms: Dict[str, GameRoom] = {}
 
 
+async def cleanup_old_rooms():
+    """Background task to clean up rooms older than 1 hour."""
+    while True:
+        await asyncio.sleep(300)  # Check every 5 minutes
+        now = datetime.now()
+        rooms_to_delete = []
+
+        for meeting_id, room in game_rooms.items():
+            age_seconds = (now - room.created_at).total_seconds()
+            if age_seconds > 3600:  # 1 hour
+                rooms_to_delete.append(meeting_id)
+                print(f"[CLEANUP] Room {meeting_id} expired (age: {age_seconds/60:.1f} min)")
+
+        for meeting_id in rooms_to_delete:
+            room = game_rooms[meeting_id]
+            # Close all websockets
+            for ws in list(room.websockets.values()):
+                try:
+                    await ws.send_json({"type": "room_expired", "message": "Game session expired"})
+                    await ws.close()
+                except:
+                    pass
+            del game_rooms[meeting_id]
+
+        if rooms_to_delete:
+            print(f"[CLEANUP] Removed {len(rooms_to_delete)} expired rooms, {len(game_rooms)} rooms remaining")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     print("Meeting Bingo Server starting...")
+    cleanup_task = asyncio.create_task(cleanup_old_rooms())
     yield
     # Shutdown
     print("Meeting Bingo Server shutting down...")
+    cleanup_task.cancel()
     # Close all websocket connections
     for room in game_rooms.values():
         for ws in room.websockets.values():
@@ -188,6 +218,18 @@ async def join_game(request: JoinGameRequest):
 
     room = game_rooms[meeting_id]
 
+    # Clean up any existing disconnected players with the same name
+    # This handles app restarts gracefully
+    players_to_remove = [
+        pid for pid, p in room.players.items()
+        if p.player_name == player_name and not p.connected
+    ]
+    for pid in players_to_remove:
+        print(f"[JOIN] Removing stale player '{player_name}' (id={pid})")
+        del room.players[pid]
+        if pid in room.websockets:
+            del room.websockets[pid]
+
     # Create player state
     player = PlayerState(
         player_id=player_id,
@@ -289,6 +331,57 @@ async def leave_game(meeting_id: str, player_id: str):
             del room.websockets[player_id]
 
     return {"status": "ok"}
+
+
+@app.post("/api/room/{meeting_id}/reset")
+async def reset_room(meeting_id: str):
+    """Reset a game room - removes all players and resets state. For testing."""
+    if meeting_id not in game_rooms:
+        return {"status": "ok", "message": "Room did not exist"}
+
+    room = game_rooms[meeting_id]
+
+    # Notify all players
+    await broadcast_to_room(room, {
+        "type": "room_reset",
+        "message": "Game has been reset"
+    })
+
+    # Close all websockets
+    for ws in list(room.websockets.values()):
+        try:
+            await ws.close()
+        except:
+            pass
+
+    # Delete the room
+    del game_rooms[meeting_id]
+    print(f"[RESET] Room {meeting_id} has been reset")
+
+    return {"status": "ok", "message": f"Room {meeting_id} has been reset"}
+
+
+@app.post("/api/reset-all")
+async def reset_all_rooms():
+    """Reset all game rooms. For testing/development."""
+    room_count = len(game_rooms)
+
+    # Notify and close all
+    for meeting_id, room in list(game_rooms.items()):
+        await broadcast_to_room(room, {
+            "type": "room_reset",
+            "message": "Server reset - all games cleared"
+        })
+        for ws in list(room.websockets.values()):
+            try:
+                await ws.close()
+            except:
+                pass
+
+    game_rooms.clear()
+    print(f"[RESET] All {room_count} rooms have been reset")
+
+    return {"status": "ok", "message": f"Reset {room_count} rooms"}
 
 
 # WebSocket endpoint for real-time updates
