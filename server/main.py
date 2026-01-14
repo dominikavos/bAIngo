@@ -18,7 +18,7 @@ from typing import Dict, List, Optional, Set
 from dataclasses import dataclass, field, asdict
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, UploadFile, File, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from nltk.stem import PorterStemmer
@@ -40,6 +40,7 @@ print("[WHISPER] Model loaded successfully")
 class PlayerState:
     player_id: str
     player_name: str
+    client_ip: str = ""  # Track client IP to deduplicate players
     marked_cells: List[List[bool]] = field(default_factory=lambda: [[False]*5 for _ in range(5)])
     words: List[List[str]] = field(default_factory=lambda: [[""]*5 for _ in range(5)])
     has_bingo: bool = False
@@ -224,10 +225,11 @@ async def health():
 
 
 @app.post("/api/join", response_model=JoinGameResponse)
-async def join_game(request: JoinGameRequest):
+async def join_game(join_request: JoinGameRequest, request: Request):
     """Join or create a game room for a meeting."""
-    meeting_id = request.meeting_id
-    player_name = request.player_name
+    meeting_id = join_request.meeting_id
+    player_name = join_request.player_name
+    client_ip = request.client.host if request.client else "unknown"
     player_id = str(uuid.uuid4())[:8]
 
     # Create room if it doesn't exist
@@ -237,26 +239,39 @@ async def join_game(request: JoinGameRequest):
 
     room = game_rooms[meeting_id]
 
-    # Clean up any existing disconnected players with the same name
-    # This handles app restarts gracefully
+    # Remove any existing players from the same IP (handles reconnects/app restarts)
+    # This ensures one device = one player
     players_to_remove = [
         pid for pid, p in room.players.items()
-        if p.player_name == player_name and not p.connected
+        if p.client_ip == client_ip
     ]
     for pid in players_to_remove:
-        print(f"[JOIN] Removing stale player '{player_name}' (id={pid})")
-        del room.players[pid]
+        old_player = room.players[pid]
+        print(f"[JOIN] Removing duplicate player '{old_player.player_name}' (id={pid}) from same IP {client_ip}")
+        # Close old websocket if exists
         if pid in room.websockets:
+            try:
+                await room.websockets[pid].close()
+            except:
+                pass
             del room.websockets[pid]
+        del room.players[pid]
+        # Notify others about the removal
+        await broadcast_to_room(room, {
+            "type": "player_left",
+            "player_id": pid,
+            "player_name": old_player.player_name
+        })
 
     # Create player state
     player = PlayerState(
         player_id=player_id,
-        player_name=player_name
+        player_name=player_name,
+        client_ip=client_ip
     )
     room.players[player_id] = player
 
-    print(f"[JOIN] Player '{player_name}' (id={player_id}) joined meeting_id={meeting_id} (total players: {len(room.players)})")
+    print(f"[JOIN] Player '{player_name}' (id={player_id}, ip={client_ip}) joined meeting_id={meeting_id} (total players: {len(room.players)})")
 
     # Broadcast player joined to others
     await broadcast_to_room(room, {
