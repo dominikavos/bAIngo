@@ -102,8 +102,12 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
 
                 // Log periodically (not every callback to reduce noise)
                 if (callbackCount % 50 == 0) {
-                    val statusMsg = "Callbacks: $callbackCount, Samples: $sampleCount, Mic: %.4f, Speaker: %.4f".format(micLevel, speakerLevel)
-                    Log.d(TAG, statusMsg)
+                    val micSize = microphone?.size ?: 0
+                    val spkSize = loudspeaker?.size ?: 0
+                    val micMax = microphone?.maxOfOrNull { kotlin.math.abs(it) } ?: 0f
+                    val spkMax = loudspeaker?.maxOfOrNull { kotlin.math.abs(it) } ?: 0f
+                    val statusMsg = "Callbacks: $callbackCount | Mic[${micSize}]: rms=%.4f max=%.4f | Spk[${spkSize}]: rms=%.4f max=%.4f".format(micLevel, micMax, speakerLevel, spkMax)
+                    Log.e(TAG, statusMsg)
                 }
                 _audioStatus.value = "Mic: %.4f | Samples: %d".format(micLevel, numSamples)
 

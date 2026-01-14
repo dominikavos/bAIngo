@@ -458,9 +458,11 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         }
 
         neatAudioManager?.setOnRawAudioReceivedListener { micSamples, speakerSamples ->
-            // Send speaker samples to transcriber (not mic, so we don't hear ourselves)
-            // This way we only transcribe what others say, preventing self-marking
-            speakerSamples?.let { samples ->
+            // Use mic samples - the NeatDevKit speaker channel appears to be empty
+            // The mic picks up room audio including what comes out of the speaker
+            // Note: This means we might pick up our own voice too, but the server
+            // only marks cells for the player who submitted the audio, so it's okay
+            micSamples?.let { samples ->
                 serviceScope.launch {
                     whisperTranscriber?.addSamples(samples)
                 }

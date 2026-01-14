@@ -540,6 +540,30 @@ async def transcribe_audio(
         tmp_path = tmp_file.name
 
     try:
+        # Analyze WAV file for debugging
+        import wave
+        import numpy as np
+        try:
+            with wave.open(tmp_path, 'rb') as wav:
+                channels = wav.getnchannels()
+                sample_width = wav.getsampwidth()
+                framerate = wav.getframerate()
+                n_frames = wav.getnframes()
+                duration = n_frames / framerate
+
+                # Read and analyze samples
+                frames = wav.readframes(n_frames)
+                samples = np.frombuffer(frames, dtype=np.int16)
+
+                # Calculate audio stats
+                max_val = np.max(np.abs(samples))
+                rms = np.sqrt(np.mean(samples.astype(np.float64)**2))
+
+                print(f"[TRANSCRIBE] WAV: {channels}ch, {sample_width*8}bit, {framerate}Hz, {duration:.2f}s")
+                print(f"[TRANSCRIBE] Audio stats: max={max_val}, rms={rms:.1f}, max_possible=32767")
+        except Exception as wav_err:
+            print(f"[TRANSCRIBE] WAV analysis error: {wav_err}")
+
         # Transcribe with Whisper
         model = get_whisper_model()
         segments, info = model.transcribe(tmp_path, language="en")
