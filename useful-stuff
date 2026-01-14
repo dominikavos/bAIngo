@@ -1,2 +1,3 @@
 curl -X POST http://localhost:8080/api/room/1234/reset
 curl -X POST http://localhost:8080/api/reset-all
+

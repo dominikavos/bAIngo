@@ -533,11 +533,10 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
     private fun createFabOverlay() {
         // Create a small FAB-only overlay
-        // Use fixed pixel size to minimize the touchable area
-        // 56dp (main FAB) + 48dp (others FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 48dp (mic FAB) + 12dp (indicator) + 40dp (spacing) + ~40dp (text) = ~340dp
+        // 56dp (boards FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 12dp (indicator) + spacing + text
         val density = resources.displayMetrics.density
         val width = (100 * density).toInt()  // ~100dp wide for FABs + status text
-        val height = (330 * density).toInt() // ~330dp tall for stacked FABs (4 buttons + indicator + status)
+        val height = (280 * density).toInt() // ~280dp tall for stacked FABs (3 buttons + indicator + status)
 
         val fabParams = WindowManager.LayoutParams(
             width,
@@ -559,21 +558,13 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
             setContent {
                 FabButtons(
                     state = overlayState,
-                    onToggleMyBoard = {
-                        val newShowingMyBoard = !overlayState.isShowingMyBoard
+                    onToggleBoards = {
+                        val newShowing = !overlayState.isShowingMyBoard
                         overlayState = overlayState.copy(
-                            isShowingMyBoard = newShowingMyBoard,
-                            isShowingOthers = false
+                            isShowingMyBoard = newShowing,
+                            isShowingOthers = false  // No longer used separately
                         )
-                        updateContentOverlay(newShowingMyBoard || false)
-                    },
-                    onToggleOthers = {
-                        val newShowingOthers = !overlayState.isShowingOthers
-                        overlayState = overlayState.copy(
-                            isShowingOthers = newShowingOthers,
-                            isShowingMyBoard = false
-                        )
-                        updateContentOverlay(false || newShowingOthers)
+                        updateContentOverlay(newShowing)
                     },
                     onDetectMeeting = {
                         Log.d(TAG, "Detect meeting button clicked!")
@@ -610,11 +601,6 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                 setContent {
                     ContentOverlay(
                         state = overlayState,
-                        onCellClick = { row, col ->
-                            serviceScope.launch {
-                                apiClient?.markCell(row, col)
-                            }
-                        },
                         onClose = {
                             overlayState = overlayState.copy(
                                 isShowingMyBoard = false,

@@ -1,5 +1,8 @@
 #!/bin/bash
-# Build and deploy Meeting Bingo to all connected Android devices
+# Build and deploy Meeting Bingo to Android devices
+# Usage: ./deploy.sh [device_id]
+#   If device_id is specified, deploy only to that device
+#   Otherwise, deploy to all connected devices
 
 set -e
 
@@ -8,12 +11,18 @@ echo "Building debug APK..."
 
 APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
 
-# Get list of connected devices
-DEVICES=$(adb devices | grep -v "List of devices" | grep "device$" | cut -f1)
+# Check if a specific device was requested
+if [ -n "$1" ]; then
+    DEVICES="$1"
+    echo "Deploying to specified device: $1"
+else
+    # Get list of connected devices
+    DEVICES=$(adb devices | grep -v "List of devices" | grep "device$" | cut -f1)
 
-if [ -z "$DEVICES" ]; then
-    echo "No devices connected!"
-    exit 1
+    if [ -z "$DEVICES" ]; then
+        echo "No devices connected!"
+        exit 1
+    fi
 fi
 
 # Deploy to each device
