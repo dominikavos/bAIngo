@@ -31,169 +31,280 @@
 19-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:13:22-75
 20
 21    <permission
-21-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+21-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
 22        android:name="com.example.meetingbingo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-22-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+22-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 23        android:protectionLevel="signature" />
-23-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+23-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 24
-25    <uses-permission android:name="com.example.meetingbingo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-25-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-25-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
-26
-27    <application
-27-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:5-56:19
-28        android:name="com.example.meetingbingo.MeetingBingoApplication"
-28-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-48
-29        android:allowBackup="true"
-29-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-35
-30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-30-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/9092a416e1bff73563e2541af95d0e9c/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-31        android:dataExtractionRules="@xml/data_extraction_rules"
-31-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-65
-32        android:debuggable="true"
-33        android:extractNativeLibs="false"
-34        android:fullBackupContent="@xml/backup_rules"
-34-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:19:9-54
-35        android:icon="@mipmap/ic_launcher"
-35-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-43
-36        android:label="@string/app_name"
-36-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-41
-37        android:roundIcon="@mipmap/ic_launcher_round"
-37-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:22:9-54
-38        android:supportsRtl="true"
-38-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:23:9-35
-39        android:theme="@style/Theme.MeetingBingo"
-39-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:9-50
-40        android:usesCleartextTraffic="true" >
-40-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:25:9-44
-41        <uses-library
-41-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:9-76
-42            android:name="no.neat.ndk"
-42-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:23-49
-43            android:required="true" />
-43-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:50-73
-44
-45        <activity
-45-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:30:9-38:20
-46            android:name="com.example.meetingbingo.MainActivity"
-46-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:13-41
-47            android:exported="true"
-47-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:13-36
-48            android:theme="@style/Theme.MeetingBingo" >
-48-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:33:13-54
-49            <intent-filter>
-49-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:34:13-37:29
-50                <action android:name="android.intent.action.MAIN" />
-50-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:17-69
-50-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:25-66
-51
-52                <category android:name="android.intent.category.LAUNCHER" />
-52-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:17-77
-52-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:27-74
-53            </intent-filter>
-54        </activity>
-55
-56        <service
-56-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:40:9-44:63
-57            android:name="com.example.meetingbingo.service.AudioCaptureService"
-57-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:41:13-56
-58            android:enabled="true"
-58-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:42:13-35
-59            android:exported="false"
-59-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:43:13-37
-60            android:foregroundServiceType="mediaProjection" />
-60-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:44:13-60
-61        <service
-61-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:46:9-54:19
-62            android:name="com.example.meetingbingo.service.BingoOverlayService"
-62-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:47:13-56
-63            android:enabled="true"
-63-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:48:13-35
-64            android:exported="false"
-64-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:49:13-37
-65            android:foregroundServiceType="specialUse" >
-65-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:50:13-55
-66            <property
-66-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:51:13-53:43
-67                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-67-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:52:17-76
-68                android:value="overlay" />
-68-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:53:17-40
-69        </service>
-70
-71        <provider
-71-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-72            android:name="androidx.startup.InitializationProvider"
-72-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-73            android:authorities="com.example.meetingbingo.androidx-startup"
-73-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-74            android:exported="false" >
-74-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-75            <meta-data
-75-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-76                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-76-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-77                android:value="androidx.startup" />
-77-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/21356d179db1f7a9fc326a8415efa11c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-78            <meta-data
-78-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
-79                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-79-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
-80                android:value="androidx.startup" />
-80-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/dcbd259b2c526829d42c9b31ab4a15dd/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
+25    <uses-permission android:name="com.example.meetingbingo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+25-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+25-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+26    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+27    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+27-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:25:5-79
+27-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:25:22-76
+28
+29    <application
+29-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:15:5-69:19
+30        android:name="com.example.meetingbingo.MeetingBingoApplication"
+30-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:16:9-48
+31        android:allowBackup="true"
+31-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:17:9-35
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.13.1] /home/dominik/.gradle/caches/transforms-4/04bba4a1c2669a3a4cab111f61bdce5c/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+33        android:dataExtractionRules="@xml/data_extraction_rules"
+33-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:18:9-65
+34        android:debuggable="true"
+35        android:extractNativeLibs="false"
+36        android:fullBackupContent="@xml/backup_rules"
+36-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:19:9-54
+37        android:icon="@mipmap/ic_launcher"
+37-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:20:9-43
+38        android:label="@string/app_name"
+38-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:21:9-41
+39        android:roundIcon="@mipmap/ic_launcher_round"
+39-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:22:9-54
+40        android:supportsRtl="true"
+40-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:23:9-35
+41        android:theme="@style/Theme.MeetingBingo"
+41-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:24:9-50
+42        android:usesCleartextTraffic="true" >
+42-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:25:9-44
+43        <uses-library
+43-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:9-76
+44            android:name="no.neat.ndk"
+44-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:23-49
+45            android:required="true" />
+45-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:28:50-73
+46
+47        <activity
+47-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:30:9-38:20
+48            android:name="com.example.meetingbingo.MainActivity"
+48-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:31:13-41
+49            android:exported="true"
+49-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:32:13-36
+50            android:theme="@style/Theme.MeetingBingo" >
+50-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:33:13-54
+51            <intent-filter>
+51-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:34:13-37:29
+52                <action android:name="android.intent.action.MAIN" />
+52-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:17-69
+52-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:35:25-66
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:17-77
+54-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:36:27-74
+55            </intent-filter>
+56        </activity>
+57
+58        <service
+58-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:40:9-44:63
+59            android:name="com.example.meetingbingo.service.AudioCaptureService"
+59-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:41:13-56
+60            android:enabled="true"
+60-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:42:13-35
+61            android:exported="false"
+61-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:43:13-37
+62            android:foregroundServiceType="mediaProjection" />
+62-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:44:13-60
+63        <service
+63-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:46:9-54:19
+64            android:name="com.example.meetingbingo.service.BingoOverlayService"
+64-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:47:13-56
+65            android:enabled="true"
+65-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:48:13-35
+66            android:exported="false"
+66-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:49:13-37
+67            android:foregroundServiceType="specialUse" >
+67-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:50:13-55
+68            <property
+68-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:51:13-53:43
+69                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+69-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:52:17-76
+70                android:value="overlay" />
+70-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:53:17-40
+71        </service>
+72        <service
+72-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:56:9-67:19
+73            android:name="com.example.meetingbingo.service.BingoAccessibilityService"
+73-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:57:13-62
+74            android:enabled="true"
+74-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:58:13-35
+75            android:exported="true"
+75-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:59:13-36
+76            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+76-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:60:13-79
+77            <intent-filter>
+77-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:61:13-63:29
+78                <action android:name="android.accessibilityservice.AccessibilityService" />
+78-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:62:17-92
+78-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:62:25-89
+79            </intent-filter>
+80
 81            <meta-data
-81-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-82                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-82-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-83                android:value="androidx.startup" />
-83-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-84        </provider>
-85
-86        <activity
-86-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
-87            android:name="androidx.compose.ui.tooling.PreviewActivity"
-87-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
-88            android:exported="true" />
-88-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0f7ec2ca0d34e9db6973bf50853e9981/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
-89
-90        <receiver
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-91-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-92            android:directBootAware="false"
-92-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-93            android:enabled="true"
-93-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-94            android:exported="true"
-94-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-95            android:permission="android.permission.DUMP" >
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-96            <intent-filter>
-96-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-97-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-97-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-98            </intent-filter>
-99            <intent-filter>
-99-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-100-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-100-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-101            </intent-filter>
-102            <intent-filter>
-102-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-103                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-103-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-103-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-104            </intent-filter>
-105            <intent-filter>
-105-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-106                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-106-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-106-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/33f1b6fe41f9a5c9fcee63de45214bc5/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-107            </intent-filter>
-108        </receiver>
-109    </application>
+81-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:64:13-66:72
+82                android:name="android.accessibilityservice"
+82-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:65:17-60
+83                android:resource="@xml/accessibility_service_config" />
+83-->/home/dominik/bAIngo/app/src/main/AndroidManifest.xml:66:17-69
+84        </service>
+85        <service
+85-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:9:9-15:19
+86            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+86-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:10:13-91
+87            android:directBootAware="true"
+87-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:17:13-43
+88            android:exported="false" >
+88-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:11:13-37
+89            <meta-data
+89-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:12:13-14:85
+90                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
+90-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:13:17-114
+91                android:value="com.google.firebase.components.ComponentRegistrar" />
+91-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/dominik/.gradle/caches/transforms-4/a28b29cce361108d888589c526a05953/transformed/play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:14:17-82
+92            <meta-data
+92-->[com.google.mlkit:vision-common:17.3.0] /home/dominik/.gradle/caches/transforms-4/0f8b45848eb02b6b0d1a71a9ab505491/transformed/vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
+93                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+93-->[com.google.mlkit:vision-common:17.3.0] /home/dominik/.gradle/caches/transforms-4/0f8b45848eb02b6b0d1a71a9ab505491/transformed/vision-common-17.3.0/AndroidManifest.xml:13:17-124
+94                android:value="com.google.firebase.components.ComponentRegistrar" />
+94-->[com.google.mlkit:vision-common:17.3.0] /home/dominik/.gradle/caches/transforms-4/0f8b45848eb02b6b0d1a71a9ab505491/transformed/vision-common-17.3.0/AndroidManifest.xml:14:17-82
+95            <meta-data
+95-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:20:13-22:85
+96                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+96-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:21:17-120
+97                android:value="com.google.firebase.components.ComponentRegistrar" />
+97-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:22:17-82
+98        </service>
+99
+100        <provider
+100-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:9:9-13:38
+101            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+101-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:10:13-78
+102            android:authorities="com.example.meetingbingo.mlkitinitprovider"
+102-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:11:13-69
+103            android:exported="false"
+103-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:12:13-37
+104            android:initOrder="99" />
+104-->[com.google.mlkit:common:18.8.0] /home/dominik/.gradle/caches/transforms-4/49654ddee09d95d7d780b133f6c25126/transformed/common-18.8.0/AndroidManifest.xml:13:13-35
+105
+106        <activity
+106-->[com.google.android.gms:play-services-base:18.1.0] /home/dominik/.gradle/caches/transforms-4/1d8742c42e909b79b40433bd805b49df/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+107            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+107-->[com.google.android.gms:play-services-base:18.1.0] /home/dominik/.gradle/caches/transforms-4/1d8742c42e909b79b40433bd805b49df/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+108            android:exported="false"
+108-->[com.google.android.gms:play-services-base:18.1.0] /home/dominik/.gradle/caches/transforms-4/1d8742c42e909b79b40433bd805b49df/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+109            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+109-->[com.google.android.gms:play-services-base:18.1.0] /home/dominik/.gradle/caches/transforms-4/1d8742c42e909b79b40433bd805b49df/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
 110
-111</manifest>
+111        <meta-data
+111-->[com.google.android.gms:play-services-basement:18.1.0] /home/dominik/.gradle/caches/transforms-4/fc2eb9d6de5fa40b76007c87ff1c07ae/transformed/play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+112            android:name="com.google.android.gms.version"
+112-->[com.google.android.gms:play-services-basement:18.1.0] /home/dominik/.gradle/caches/transforms-4/fc2eb9d6de5fa40b76007c87ff1c07ae/transformed/play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+113            android:value="@integer/google_play_services_version" />
+113-->[com.google.android.gms:play-services-basement:18.1.0] /home/dominik/.gradle/caches/transforms-4/fc2eb9d6de5fa40b76007c87ff1c07ae/transformed/play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+114
+115        <provider
+115-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+116            android:name="androidx.startup.InitializationProvider"
+116-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+117            android:authorities="com.example.meetingbingo.androidx-startup"
+117-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+118            android:exported="false" >
+118-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+119            <meta-data
+119-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+120                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+120-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+121                android:value="androidx.startup" />
+121-->[androidx.emoji2:emoji2:1.3.0] /home/dominik/.gradle/caches/transforms-4/bdba56b9079496388074cb6f59a15493/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+122            <meta-data
+122-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/0e5a0a57491dfb7bc830bbc990a72288/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
+123                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+123-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/0e5a0a57491dfb7bc830bbc990a72288/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
+124                android:value="androidx.startup" />
+124-->[androidx.lifecycle:lifecycle-process:2.8.3] /home/dominik/.gradle/caches/transforms-4/0e5a0a57491dfb7bc830bbc990a72288/transformed/lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
+125            <meta-data
+125-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+126                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+127                android:value="androidx.startup" />
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+128        </provider>
+129
+130        <activity
+130-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0b4cc917db2603604e10bcafd9527e66/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+131            android:name="androidx.compose.ui.tooling.PreviewActivity"
+131-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0b4cc917db2603604e10bcafd9527e66/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+132            android:exported="true" />
+132-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/dominik/.gradle/caches/transforms-4/0b4cc917db2603604e10bcafd9527e66/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+133
+134        <service
+134-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+135            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+135-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+136            android:exported="false" >
+136-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+137            <meta-data
+137-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+138                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+138-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+139                android:value="cct" />
+139-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/dominik/.gradle/caches/transforms-4/3e75fc825e169842397712d452314dbd/transformed/transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+140        </service>
+141        <service
+141-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:26:9-30:19
+142            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+142-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:27:13-117
+143            android:exported="false"
+143-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:28:13-37
+144            android:permission="android.permission.BIND_JOB_SERVICE" >
+144-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:29:13-69
+145        </service>
+146
+147        <receiver
+147-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:32:9-34:40
+148            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+148-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:33:13-132
+149            android:exported="false" />
+149-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/dominik/.gradle/caches/transforms-4/2442dbcd45c61954cd32626b24bb9665/transformed/transport-runtime-2.2.6/AndroidManifest.xml:34:13-37
+150        <receiver
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+151            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+151-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+152            android:directBootAware="false"
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+153            android:enabled="true"
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+154            android:exported="true"
+154-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+155            android:permission="android.permission.DUMP" >
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+156            <intent-filter>
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+157                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+157-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+157-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+158            </intent-filter>
+159            <intent-filter>
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+160                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+160-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+160-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+161            </intent-filter>
+162            <intent-filter>
+162-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+163                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+164            </intent-filter>
+165            <intent-filter>
+165-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+166                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+166-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+166-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/dominik/.gradle/caches/transforms-4/90c56f04a3ba66df5b334cf732f0bb04/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+167            </intent-filter>
+168        </receiver>
+169    </application>
+170
+171</manifest>

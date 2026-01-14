@@ -7,6 +7,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="accessibility_service_description">Meeting Bingo uses this service to automatically detect the current meeting ID from Zoom and navigate the meeting interface.</string>
     <string name="app_name">Meeting Bingo</string>
     <string name="bingo">BINGO!</string>
     <string name="free">FREE</string>

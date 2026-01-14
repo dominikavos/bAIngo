@@ -66,5 +66,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
+    // ML Kit for OCR text recognition
+    implementation(libs.mlkit.text.recognition)
+
     debugImplementation(libs.androidx.ui.tooling)
 }

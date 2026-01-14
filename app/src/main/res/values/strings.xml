@@ -10,4 +10,5 @@
     <string name="not_listening">Tap mic to start</string>
     <string name="permission_required">Microphone permission is required for speech recognition</string>
     <string name="speech_not_available">Speech recognition is not available on this device</string>
+    <string name="accessibility_service_description">Meeting Bingo uses this service to automatically detect the current meeting ID from Zoom and navigate the meeting interface.</string>
 </resources>

@@ -29,6 +29,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.GridOn
 import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -56,96 +58,122 @@ import com.example.meetingbingo.ui.theme.CellFree
 import com.example.meetingbingo.ui.theme.CellMarked
 
 /**
- * Main overlay content that contains the FAB buttons and expandable boards.
+ * FAB buttons overlay - small footprint, doesn't block touches elsewhere.
  */
 @Composable
-fun OverlayContent(
+fun FabButtons(
     state: BingoOverlayService.OverlayState,
     onToggleMyBoard: () -> Unit,
     onToggleOthers: () -> Unit,
+    onDetectMeeting: (() -> Unit)? = null,
+    onReset: (() -> Unit)? = null
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Connection indicator
+        ConnectionIndicator(state.connectionState)
+
+        // Reset button
+        FloatingActionButton(
+            onClick = { onReset?.invoke() },
+            containerColor = Color.Gray,
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = "Reset Game",
+                tint = Color.White
+            )
+        }
+
+        // Detect Meeting ID button - color based on status
+        val detectButtonColor = when (state.meetingIdDetectionStatus) {
+            BingoOverlayService.MeetingIdDetectionStatus.NOT_ATTEMPTED -> Color.Gray
+            BingoOverlayService.MeetingIdDetectionStatus.DETECTING -> BingoOrange
+            BingoOverlayService.MeetingIdDetectionStatus.SUCCESS -> BingoGreen
+            BingoOverlayService.MeetingIdDetectionStatus.FAILED -> BingoRed
+        }
+        FloatingActionButton(
+            onClick = { onDetectMeeting?.invoke() },
+            containerColor = detectButtonColor,
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Detect Meeting ID",
+                tint = Color.White
+            )
+        }
+
+        // Others button
+        FloatingActionButton(
+            onClick = onToggleOthers,
+            containerColor = if (state.isShowingOthers) BingoOrange else BingoGreen,
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.People,
+                contentDescription = "Show others",
+                tint = Color.White
+            )
+        }
+
+        // My board button
+        FloatingActionButton(
+            onClick = onToggleMyBoard,
+            containerColor = if (state.isShowingMyBoard) BingoOrange else BingoGreen,
+            modifier = Modifier.size(56.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.GridOn,
+                contentDescription = "My board",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+/**
+ * Content overlay - full screen with scrim and board panels.
+ */
+@Composable
+fun ContentOverlay(
+    state: BingoOverlayService.OverlayState,
     onCellClick: (Int, Int) -> Unit,
     onClose: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        // Background scrim when showing content
-        AnimatedVisibility(
-            visible = state.isShowingMyBoard || state.isShowingOthers,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.5f))
-                    .clickable { onClose() }
-            )
-        }
+        // Background scrim
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .clickable { onClose() }
+        )
 
         // My Board overlay
-        AnimatedVisibility(
-            visible = state.isShowingMyBoard,
-            enter = slideInVertically { it } + fadeIn(),
-            exit = slideOutVertically { it } + fadeOut(),
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            MyBoardOverlay(
-                markedCells = state.myMarkedCells,
-                words = state.myWords,
-                hasBingo = state.myHasBingo,
-                onCellClick = onCellClick,
-                onClose = onClose
-            )
+        if (state.isShowingMyBoard) {
+            Box(modifier = Modifier.align(Alignment.Center)) {
+                MyBoardOverlay(
+                    markedCells = state.myMarkedCells,
+                    words = state.myWords,
+                    hasBingo = state.myHasBingo,
+                    onCellClick = onCellClick,
+                    onClose = onClose
+                )
+            }
         }
 
         // Others' boards overlay
-        AnimatedVisibility(
-            visible = state.isShowingOthers,
-            enter = slideInVertically { it } + fadeIn(),
-            exit = slideOutVertically { it } + fadeOut(),
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            OtherPlayersOverlay(
-                players = state.otherPlayers,
-                onClose = onClose
-            )
-        }
-
-        // FAB buttons (always visible at bottom right)
-        Column(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalAlignment = Alignment.End
-        ) {
-            // Connection indicator
-            ConnectionIndicator(state.connectionState)
-
-            // Others button
-            FloatingActionButton(
-                onClick = onToggleOthers,
-                containerColor = if (state.isShowingOthers) BingoOrange else BingoGreen,
-                modifier = Modifier.size(48.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.People,
-                    contentDescription = "Show others",
-                    tint = Color.White
-                )
-            }
-
-            // My board button
-            FloatingActionButton(
-                onClick = onToggleMyBoard,
-                containerColor = if (state.isShowingMyBoard) BingoOrange else BingoGreen,
-                modifier = Modifier.size(56.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.GridOn,
-                    contentDescription = "My board",
-                    tint = Color.White
+        if (state.isShowingOthers) {
+            Box(modifier = Modifier.align(Alignment.Center)) {
+                OtherPlayersOverlay(
+                    players = state.otherPlayers,
+                    onClose = onClose
                 )
             }
         }

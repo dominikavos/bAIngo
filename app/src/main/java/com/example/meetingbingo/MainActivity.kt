@@ -16,6 +16,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.example.meetingbingo.service.BingoAccessibilityService
 import com.example.meetingbingo.service.BingoOverlayService
 import com.example.meetingbingo.ui.screens.SetupScreen
 import com.example.meetingbingo.ui.theme.MeetingBingoTheme
@@ -24,6 +27,7 @@ import com.example.meetingbingo.viewmodel.BingoViewModel
 class MainActivity : ComponentActivity() {
 
     private val viewModel: BingoViewModel by viewModels()
+    private var isAccessibilityEnabled = false
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -46,6 +50,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MeetingBingoTheme {
+                val accessibilityEnabled by BingoAccessibilityService.isServiceEnabled.collectAsState()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -61,6 +67,10 @@ class MainActivity : ComponentActivity() {
                         hasOverlayPermission = Settings.canDrawOverlays(this),
                         onRequestOverlayPermission = {
                             requestOverlayPermission()
+                        },
+                        hasAccessibilityPermission = accessibilityEnabled,
+                        onRequestAccessibilityPermission = {
+                            requestAccessibilityPermission()
                         }
                     )
                 }
@@ -101,6 +111,16 @@ class MainActivity : ComponentActivity() {
             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
             Uri.parse("package:$packageName")
         )
+        startActivity(intent)
+    }
+
+    private fun requestAccessibilityPermission() {
+        Toast.makeText(
+            this,
+            "Please enable Meeting Bingo in Accessibility Settings",
+            Toast.LENGTH_LONG
+        ).show()
+        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
         startActivity(intent)
     }
 

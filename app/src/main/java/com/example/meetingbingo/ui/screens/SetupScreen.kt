@@ -55,7 +55,9 @@ fun SetupScreen(
     onStartOverlay: (meetingId: String, playerName: String, serverUrl: String) -> Unit,
     onStopOverlay: () -> Unit,
     hasOverlayPermission: Boolean,
-    onRequestOverlayPermission: () -> Unit
+    onRequestOverlayPermission: () -> Unit,
+    hasAccessibilityPermission: Boolean = false,
+    onRequestAccessibilityPermission: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -149,7 +151,7 @@ fun SetupScreen(
                         singleLine = true
                     )
 
-                    // Permission status
+                    // Overlay permission status
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -172,6 +174,33 @@ fun SetupScreen(
                                 modifier = Modifier.height(32.dp)
                             ) {
                                 Text("Grant", style = MaterialTheme.typography.bodySmall)
+                            }
+                        }
+                    }
+
+                    // Accessibility permission status (for auto-detecting meeting ID)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = if (hasAccessibilityPermission) Icons.Default.CheckCircle else Icons.Default.Warning,
+                            contentDescription = null,
+                            tint = if (hasAccessibilityPermission) BingoGreen else Color.Gray,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Text(
+                            text = if (hasAccessibilityPermission) "Auto-detect meeting ID enabled" else "Auto-detect meeting ID (optional)",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = if (hasAccessibilityPermission) BingoGreen else Color.Gray
+                        )
+                        if (!hasAccessibilityPermission) {
+                            Button(
+                                onClick = onRequestAccessibilityPermission,
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
+                                modifier = Modifier.height(32.dp)
+                            ) {
+                                Text("Enable", style = MaterialTheme.typography.bodySmall)
                             }
                         }
                     }

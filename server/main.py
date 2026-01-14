@@ -145,7 +145,9 @@ def check_bingo(marked_cells: List[List[bool]]) -> bool:
 async def broadcast_to_room(room: GameRoom, message: dict, exclude_player_id: Optional[str] = None):
     """Broadcast a message to all connected players in a room."""
     disconnected = []
-    for player_id, ws in room.websockets.items():
+    # Create a copy of items to avoid RuntimeError during iteration
+    websocket_items = list(room.websockets.items())
+    for player_id, ws in websocket_items:
         if player_id == exclude_player_id:
             continue
         try:
@@ -182,6 +184,7 @@ async def join_game(request: JoinGameRequest):
     # Create room if it doesn't exist
     if meeting_id not in game_rooms:
         game_rooms[meeting_id] = GameRoom(meeting_id=meeting_id)
+        print(f"[JOIN] Created new room for meeting_id={meeting_id}")
 
     room = game_rooms[meeting_id]
 
@@ -191,6 +194,8 @@ async def join_game(request: JoinGameRequest):
         player_name=player_name
     )
     room.players[player_id] = player
+
+    print(f"[JOIN] Player '{player_name}' (id={player_id}) joined meeting_id={meeting_id} (total players: {len(room.players)})")
 
     # Broadcast player joined to others
     await broadcast_to_room(room, {

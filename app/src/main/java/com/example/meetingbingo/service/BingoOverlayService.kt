@@ -31,7 +31,8 @@ import com.example.meetingbingo.MainActivity
 import com.example.meetingbingo.R
 import com.example.meetingbingo.network.BingoApiClient
 import com.example.meetingbingo.network.PlayerState
-import com.example.meetingbingo.ui.overlay.OverlayContent
+import com.example.meetingbingo.ui.overlay.ContentOverlay
+import com.example.meetingbingo.ui.overlay.FabButtons
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -72,6 +73,13 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         }
     }
 
+    enum class MeetingIdDetectionStatus {
+        NOT_ATTEMPTED,
+        DETECTING,
+        SUCCESS,
+        FAILED
+    }
+
     data class OverlayState(
         val isShowingMyBoard: Boolean = false,
         val isShowingOthers: Boolean = false,
@@ -79,7 +87,11 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         val myHasBingo: Boolean = false,
         val otherPlayers: List<PlayerState> = emptyList(),
         val myWords: List<List<String>> = emptyList(),
-        val connectionState: BingoApiClient.ConnectionState = BingoApiClient.ConnectionState.DISCONNECTED
+        val connectionState: BingoApiClient.ConnectionState = BingoApiClient.ConnectionState.DISCONNECTED,
+        val currentMeetingId: String = "1234",
+        val isAccessibilityEnabled: Boolean = false,
+        val meetingIdDetectionStatus: MeetingIdDetectionStatus = MeetingIdDetectionStatus.NOT_ATTEMPTED,
+        val detectedMeetingId: String? = null
     )
 
     private lateinit var windowManager: WindowManager
@@ -88,6 +100,12 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var apiClient: BingoApiClient? = null
+
+    private var currentMeetingId: String = "1234"
+    private var currentPlayerName: String = "Player"
+    private var currentServerUrl: String = "http://10.47.6.1:8080"
+    private var lastMeetingIdChangeTime: Long = 0
+    private var meetingIdExtractionJob: Job? = null
 
     private val lifecycleRegistry = LifecycleRegistry(this)
     private val savedStateRegistryController = SavedStateRegistryController.create(this)
@@ -171,6 +189,11 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     private fun startOverlay(meetingId: String, playerName: String, serverUrl: String) {
         Log.d(TAG, "Starting overlay: meetingId=$meetingId, player=$playerName, server=$serverUrl")
 
+        currentMeetingId = meetingId
+        currentPlayerName = playerName
+        currentServerUrl = serverUrl
+        lastMeetingIdChangeTime = System.currentTimeMillis()
+
         // Initialize API client and connect
         apiClient = BingoApiClient(serverUrl)
 
@@ -178,6 +201,7 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
             // Join the game
             apiClient?.joinGame(meetingId, playerName)?.onSuccess { response ->
                 Log.d(TAG, "Joined game with ${response.players.size} other players")
+                overlayState = overlayState.copy(currentMeetingId = meetingId)
             }?.onFailure { e ->
                 Log.e(TAG, "Failed to join game", e)
             }
@@ -194,8 +218,122 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
             }
         }
 
+        // Monitor accessibility service state
+        serviceScope.launch {
+            BingoAccessibilityService.isServiceEnabled.collectLatest { enabled ->
+                overlayState = overlayState.copy(isAccessibilityEnabled = enabled)
+            }
+        }
+
+        // Set up detection callbacks
+        BingoAccessibilityService.onDetectionStarted = {
+            overlayState = overlayState.copy(
+                meetingIdDetectionStatus = MeetingIdDetectionStatus.DETECTING
+            )
+        }
+        BingoAccessibilityService.onDetectionSuccess = { meetingId ->
+            overlayState = overlayState.copy(
+                meetingIdDetectionStatus = MeetingIdDetectionStatus.SUCCESS,
+                detectedMeetingId = meetingId
+            )
+            // Auto-switch to the detected meeting
+            switchToMeeting(meetingId)
+        }
+        BingoAccessibilityService.onDetectionFailed = { errorMessage ->
+            Log.e(TAG, "Detection failed: $errorMessage")
+            overlayState = overlayState.copy(
+                meetingIdDetectionStatus = MeetingIdDetectionStatus.FAILED
+            )
+        }
+
+        // Monitor extracted meeting IDs from accessibility service
+        meetingIdExtractionJob = serviceScope.launch {
+            BingoAccessibilityService.extractedMeetingId.collectLatest { extractedId ->
+                if (extractedId != null && extractedId != currentMeetingId) {
+                    Log.d(TAG, "New meeting ID extracted: $extractedId")
+                    switchToMeeting(extractedId)
+                }
+            }
+        }
+
+        // Note: Auto-detection removed in favor of manual button
+
         // Create FAB overlay (always visible toggle buttons)
         createFabOverlay()
+    }
+
+    /**
+     * Switch to a new meeting, resetting the bingo board.
+     */
+    private fun switchToMeeting(newMeetingId: String) {
+        val timeSinceLastChange = System.currentTimeMillis() - lastMeetingIdChangeTime
+        val oneHourMs = 60 * 60 * 1000L
+
+        // Only switch if the meeting ID is different or it's been more than an hour
+        if (newMeetingId != currentMeetingId || timeSinceLastChange > oneHourMs) {
+            Log.d(TAG, "Switching to meeting: $newMeetingId (time since last: ${timeSinceLastChange}ms)")
+
+            // Leave current game
+            serviceScope.launch {
+                apiClient?.leaveGame()
+
+                // Update meeting ID
+                currentMeetingId = newMeetingId
+                lastMeetingIdChangeTime = System.currentTimeMillis()
+                overlayState = overlayState.copy(currentMeetingId = newMeetingId)
+
+                // Join new game
+                apiClient?.joinGame(newMeetingId, currentPlayerName)?.onSuccess { response ->
+                    Log.d(TAG, "Joined new meeting with ${response.players.size} other players")
+                }?.onFailure { e ->
+                    Log.e(TAG, "Failed to join new meeting", e)
+                }
+            }
+        }
+    }
+
+    /**
+     * Trigger meeting ID extraction via accessibility service (auto-navigation method).
+     */
+    fun triggerMeetingIdExtraction() {
+        Log.d(TAG, "triggerMeetingIdExtraction called")
+        val accessibilityService = BingoAccessibilityService.instance
+        Log.d(TAG, "Accessibility service instance: $accessibilityService")
+        if (accessibilityService != null) {
+            Log.d(TAG, "Triggering meeting ID extraction")
+            accessibilityService.startMeetingIdExtraction()
+        } else {
+            Log.e(TAG, "Accessibility service not available - instance is null")
+        }
+    }
+
+    /**
+     * Open the main app activity.
+     */
+    fun openMainApp() {
+        Log.d(TAG, "Opening main app")
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
+    }
+
+    /**
+     * Trigger manual screenshot OCR for meeting ID detection.
+     * User should have Meeting info dialog visible when calling this.
+     */
+    fun triggerScreenshotOcr() {
+        Log.d(TAG, "triggerScreenshotOcr called")
+        val accessibilityService = BingoAccessibilityService.instance
+        if (accessibilityService != null) {
+            Log.d(TAG, "Triggering manual screenshot OCR")
+            accessibilityService.extractMeetingIdFromScreenshot()
+        } else {
+            Log.e(TAG, "Accessibility service not available - instance is null")
+            overlayState = overlayState.copy(
+                meetingIdDetectionStatus = MeetingIdDetectionStatus.FAILED
+            )
+        }
     }
 
     private fun stopOverlay() {
@@ -227,77 +365,109 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     }
 
     private fun createFabOverlay() {
-        val params = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT,
+        // Create a small FAB-only overlay
+        // Use fixed pixel size to minimize the touchable area
+        // 56dp (main FAB) + 48dp (others FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 12dp (indicator) + 32dp (spacing) = ~244dp
+        val density = resources.displayMetrics.density
+        val width = (70 * density).toInt()  // ~70dp wide for FABs
+        val height = (260 * density).toInt() // ~260dp tall for stacked FABs (4 buttons + indicator)
+
+        val fabParams = WindowManager.LayoutParams(
+            width,
+            height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            // FLAG_NOT_FOCUSABLE: Window won't receive key events (allows touches)
+            // We explicitly do NOT use FLAG_NOT_TOUCHABLE so the window receives touch events
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
         ).apply {
-            gravity = Gravity.TOP or Gravity.START
+            gravity = Gravity.BOTTOM or Gravity.END
+            x = 16
+            y = 16
         }
 
         fabView = ComposeView(this).apply {
             setViewTreeLifecycleOwner(this@BingoOverlayService)
             setViewTreeSavedStateRegistryOwner(this@BingoOverlayService)
             setContent {
-                OverlayContent(
+                FabButtons(
                     state = overlayState,
                     onToggleMyBoard = {
+                        val newShowingMyBoard = !overlayState.isShowingMyBoard
                         overlayState = overlayState.copy(
-                            isShowingMyBoard = !overlayState.isShowingMyBoard,
+                            isShowingMyBoard = newShowingMyBoard,
                             isShowingOthers = false
                         )
-                        updateOverlayTouchability()
+                        updateContentOverlay(newShowingMyBoard || false)
                     },
                     onToggleOthers = {
+                        val newShowingOthers = !overlayState.isShowingOthers
                         overlayState = overlayState.copy(
-                            isShowingOthers = !overlayState.isShowingOthers,
+                            isShowingOthers = newShowingOthers,
                             isShowingMyBoard = false
                         )
-                        updateOverlayTouchability()
+                        updateContentOverlay(false || newShowingOthers)
                     },
-                    onCellClick = { row, col ->
-                        serviceScope.launch {
-                            apiClient?.markCell(row, col)
-                        }
+                    onDetectMeeting = {
+                        Log.d(TAG, "Detect meeting button clicked!")
+                        triggerScreenshotOcr()
                     },
-                    onClose = {
-                        overlayState = overlayState.copy(
-                            isShowingMyBoard = false,
-                            isShowingOthers = false
-                        )
-                        updateOverlayTouchability()
+                    onReset = {
+                        Log.d(TAG, "Open app button clicked!")
+                        openMainApp()
                     }
                 )
             }
         }
 
-        windowManager.addView(fabView, params)
+        windowManager.addView(fabView, fabParams)
     }
 
-    private fun updateOverlayTouchability() {
-        val isShowingContent = overlayState.isShowingMyBoard || overlayState.isShowingOthers
-
-        fabView?.let { view ->
-            val params = view.layoutParams as WindowManager.LayoutParams
-            params.flags = if (isShowingContent) {
-                // When showing content, allow touches everywhere
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-            } else {
-                // When not showing content, only capture touches on FABs
+    private fun updateContentOverlay(show: Boolean) {
+        if (show && overlayView == null) {
+            // Create full-screen content overlay
+            val contentParams = WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                PixelFormat.TRANSLUCENT
+            ).apply {
+                gravity = Gravity.TOP or Gravity.START
             }
+
+            overlayView = ComposeView(this).apply {
+                setViewTreeLifecycleOwner(this@BingoOverlayService)
+                setViewTreeSavedStateRegistryOwner(this@BingoOverlayService)
+                setContent {
+                    ContentOverlay(
+                        state = overlayState,
+                        onCellClick = { row, col ->
+                            serviceScope.launch {
+                                apiClient?.markCell(row, col)
+                            }
+                        },
+                        onClose = {
+                            overlayState = overlayState.copy(
+                                isShowingMyBoard = false,
+                                isShowingOthers = false
+                            )
+                            updateContentOverlay(false)
+                        }
+                    )
+                }
+            }
+
+            windowManager.addView(overlayView, contentParams)
+        } else if (!show && overlayView != null) {
+            // Remove content overlay
             try {
-                windowManager.updateViewLayout(view, params)
+                windowManager.removeView(overlayView)
             } catch (e: Exception) {
-                Log.e(TAG, "Error updating overlay layout", e)
+                Log.e(TAG, "Error removing content overlay", e)
             }
+            overlayView = null
         }
     }
 }
