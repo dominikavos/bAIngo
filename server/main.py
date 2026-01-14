@@ -48,8 +48,8 @@ class PlayerState:
     last_seen: datetime = field(default_factory=datetime.now)
 
     def __post_init__(self):
-        # Ensure center cell (FREE space) is always marked
-        self.marked_cells[2][2] = True
+        # Center cell is TEAM! - not pre-marked, but can be marked when someone says "TEAM!"
+        pass
 
     def to_dict(self) -> dict:
         return {

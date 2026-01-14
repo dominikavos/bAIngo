@@ -28,6 +28,10 @@ import com.example.meetingbingo.ui.theme.CellFree
 import com.example.meetingbingo.ui.theme.CellMarked
 import com.example.meetingbingo.ui.theme.CellUnmarked
 
+// Team space colors
+private val CellTeam = Color(0xFFE3F2FD)  // Light blue
+private val CellTeamBorder = Color(0xFF1976D2)  // Blue
+
 /**
  * A single cell in the Bingo card.
  */
@@ -37,9 +41,12 @@ fun BingoCellView(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val isTeamSpace = cell.isFreeSpace  // isFreeSpace is now used for TEAM! space
+
     val backgroundColor by animateColorAsState(
         targetValue = when {
-            cell.isFreeSpace -> CellFree
+            isTeamSpace && cell.isMarked -> CellMarked  // TEAM! marked = green
+            isTeamSpace -> CellTeam  // TEAM! unmarked = light blue
             cell.isMarked -> CellMarked
             else -> CellUnmarked
         },
@@ -47,10 +54,17 @@ fun BingoCellView(
         label = "cellColor"
     )
 
-    val textColor = if (cell.isMarked || cell.isFreeSpace) {
-        Color(0xFF2E7D32) // Dark green for marked cells
-    } else {
-        Color(0xFF424242) // Dark gray for unmarked
+    val textColor = when {
+        cell.isMarked -> Color(0xFF2E7D32) // Dark green for marked cells
+        isTeamSpace -> CellTeamBorder  // Blue for TEAM! space
+        else -> Color(0xFF424242) // Dark gray for unmarked
+    }
+
+    val borderColor = when {
+        isTeamSpace && cell.isMarked -> CellMarked
+        isTeamSpace -> CellTeamBorder
+        cell.isMarked -> CellMarked
+        else -> CellBorder
     }
 
     Box(
@@ -60,18 +74,18 @@ fun BingoCellView(
             .clip(RoundedCornerShape(8.dp))
             .background(backgroundColor)
             .border(
-                width = 1.dp,
-                color = if (cell.isMarked) CellMarked else CellBorder,
+                width = if (isTeamSpace) 2.dp else 1.dp,
+                color = borderColor,
                 shape = RoundedCornerShape(8.dp)
             )
-            .clickable(enabled = !cell.isFreeSpace) { onClick() },
+            .clickable { onClick() },  // All cells can be clicked now
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = cell.word.uppercase(),
             style = MaterialTheme.typography.labelMedium.copy(
-                fontWeight = if (cell.isMarked) FontWeight.Bold else FontWeight.Medium,
-                fontSize = if (cell.isFreeSpace) 18.sp else 14.sp
+                fontWeight = if (cell.isMarked || isTeamSpace) FontWeight.Bold else FontWeight.Medium,
+                fontSize = if (isTeamSpace) 18.sp else 14.sp
             ),
             color = textColor,
             textAlign = TextAlign.Center,

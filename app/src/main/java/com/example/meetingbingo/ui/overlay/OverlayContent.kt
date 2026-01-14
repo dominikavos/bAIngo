@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -271,11 +273,15 @@ private fun LandscapeBoardLayout(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
                         .padding(2.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     state.otherPlayers.forEach { player ->
-                        MiniPlayerBoard(player = player, modifier = Modifier.weight(1f, fill = false))
+                        MiniPlayerBoard(
+                            player = player,
+                            modifier = Modifier.widthIn(max = 200.dp)  // Max width for landscape
+                        )
                     }
                 }
             }
@@ -341,7 +347,7 @@ private fun PortraitBoardLayout(
         if (state.otherPlayers.isEmpty()) {
             Box(
                 modifier = Modifier
-                    .weight(0.25f)
+                    .weight(0.3f)
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
@@ -350,7 +356,7 @@ private fun PortraitBoardLayout(
         } else {
             Row(
                 modifier = Modifier
-                    .weight(0.25f)
+                    .weight(0.3f)
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -358,7 +364,7 @@ private fun PortraitBoardLayout(
                 state.otherPlayers.forEach { player ->
                     MiniPlayerBoard(
                         player = player,
-                        modifier = Modifier.width(120.dp)
+                        modifier = Modifier.width(180.dp)  // Larger boards in portrait
                     )
                 }
             }
@@ -386,13 +392,13 @@ private fun BingoGrid(
             ) {
                 for (col in 0 until 5) {
                     val isMarked = markedCells.getOrNull(row)?.getOrNull(col) ?: false
-                    val isFreeSpace = row == 2 && col == 2
-                    val word = words.getOrNull(row)?.getOrNull(col) ?: if (isFreeSpace) "FREE" else ""
+                    val isTeamSpace = row == 2 && col == 2
+                    val word = words.getOrNull(row)?.getOrNull(col) ?: if (isTeamSpace) "TEAM!" else ""
 
                     OverlayCell(
                         word = word,
-                        isMarked = isMarked || isFreeSpace,
-                        isFreeSpace = isFreeSpace,
+                        isMarked = isMarked,
+                        isTeamSpace = isTeamSpace,
                         showWord = showWords,
                         modifier = Modifier.weight(1f)
                     )
@@ -461,12 +467,12 @@ private fun MiniPlayerBoard(
                     ) {
                         for (col in 0 until 5) {
                             val isMarked = player.marked_cells.getOrNull(row)?.getOrNull(col) ?: false
-                            val isFreeSpace = row == 2 && col == 2
+                            val isTeamSpace = row == 2 && col == 2
 
                             OverlayCell(
                                 word = "",
-                                isMarked = isMarked || isFreeSpace,
-                                isFreeSpace = isFreeSpace,
+                                isMarked = isMarked,
+                                isTeamSpace = isTeamSpace,
                                 showWord = false,
                                 modifier = Modifier.weight(1f),
                                 mini = true
@@ -496,19 +502,31 @@ private fun ConnectionIndicator(state: BingoApiClient.ConnectionState) {
     )
 }
 
+// Team space color - a nice blue/purple to stand out
+private val CellTeam = Color(0xFFE3F2FD)  // Light blue
+private val CellTeamBorder = Color(0xFF1976D2)  // Blue
+
 @Composable
 private fun OverlayCell(
     word: String,
     isMarked: Boolean,
-    isFreeSpace: Boolean,
+    isTeamSpace: Boolean = false,
     showWord: Boolean,
     modifier: Modifier = Modifier,
     mini: Boolean = false
 ) {
     val backgroundColor = when {
-        isFreeSpace -> CellFree
+        isTeamSpace && isMarked -> CellMarked  // When TEAM! is marked, show green
+        isTeamSpace -> CellTeam  // TEAM! space - light blue
         isMarked -> CellMarked
         else -> Color.White
+    }
+
+    val borderColor = when {
+        isTeamSpace && isMarked -> CellMarked
+        isTeamSpace -> CellTeamBorder
+        isMarked -> CellMarked
+        else -> Color.LightGray
     }
 
     val shape = RoundedCornerShape(if (mini) 2.dp else 6.dp)
@@ -520,8 +538,8 @@ private fun OverlayCell(
             .clip(shape)
             .background(backgroundColor)
             .border(
-                width = if (mini) 0.5.dp else 1.dp,
-                color = if (isMarked) CellMarked else Color.LightGray,
+                width = if (mini) 0.5.dp else if (isTeamSpace) 2.dp else 1.dp,
+                color = borderColor,
                 shape = shape
             ),
         contentAlignment = Alignment.Center
@@ -529,10 +547,14 @@ private fun OverlayCell(
         if (showWord && word.isNotEmpty()) {
             Text(
                 text = word.uppercase(),
-                fontSize = if (isFreeSpace) 12.sp else 10.sp,
-                fontWeight = if (isMarked) FontWeight.Bold else FontWeight.Normal,
+                fontSize = if (isTeamSpace) 12.sp else 10.sp,
+                fontWeight = if (isMarked || isTeamSpace) FontWeight.Bold else FontWeight.Normal,
                 textAlign = TextAlign.Center,
-                color = if (isMarked) Color(0xFF2E7D32) else Color.DarkGray,
+                color = when {
+                    isMarked -> Color(0xFF2E7D32)  // Green when marked
+                    isTeamSpace -> CellTeamBorder  // Blue for TEAM!
+                    else -> Color.DarkGray
+                },
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(1.dp)

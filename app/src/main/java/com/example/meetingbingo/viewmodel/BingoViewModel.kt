@@ -120,9 +120,9 @@ class BingoViewModel(application: Application) : AndroidViewModel(application) {
             for (col in 0 until 5) {
                 val cell = if (row == 2 && col == 2) {
                     BingoCell(
-                        word = "FREE",
-                        isMarked = true,
-                        isFreeSpace = true,
+                        word = "TEAM!",
+                        isMarked = false,  // Not pre-marked - must be earned!
+                        isFreeSpace = true,  // Still treated as special space
                         row = row,
                         column = col
                     )
