@@ -28,9 +28,11 @@ import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.example.meetingbingo.MainActivity
+import com.example.meetingbingo.MeetingBingoApplication
 import com.example.meetingbingo.R
 import com.example.meetingbingo.network.BingoApiClient
 import com.example.meetingbingo.network.PlayerState
+import com.example.meetingbingo.speech.NeatAudioManager
 import com.example.meetingbingo.ui.overlay.ContentOverlay
 import com.example.meetingbingo.ui.overlay.FabButtons
 import kotlinx.coroutines.CoroutineScope
@@ -91,7 +93,11 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         val currentMeetingId: String = "1234",
         val isAccessibilityEnabled: Boolean = false,
         val meetingIdDetectionStatus: MeetingIdDetectionStatus = MeetingIdDetectionStatus.NOT_ATTEMPTED,
-        val detectedMeetingId: String? = null
+        val detectedMeetingId: String? = null,
+        // Audio/transcription state
+        val isListening: Boolean = false,
+        val audioStatus: String = "",
+        val lastTranscript: String = ""
     )
 
     private lateinit var windowManager: WindowManager
@@ -100,6 +106,7 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var apiClient: BingoApiClient? = null
+    private var neatAudioManager: NeatAudioManager? = null
 
     private var currentMeetingId: String = "1234"
     private var currentPlayerName: String = "Player"
@@ -258,6 +265,9 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
         // Note: Auto-detection removed in favor of manual button
 
+        // Initialize audio manager for speech recognition
+        setupAudioRecording()
+
         // Create FAB overlay (always visible toggle buttons)
         createFabOverlay()
     }
@@ -336,8 +346,56 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         }
     }
 
+    private fun setupAudioRecording() {
+        Log.d(TAG, "Setting up NeatDevKit audio recording")
+        neatAudioManager = NeatAudioManager(MeetingBingoApplication.neatDevKit)
+
+        Log.d(TAG, "Audio recording available: ${neatAudioManager?.isAvailable?.value}")
+
+        neatAudioManager?.setOnAudioReceivedListener { micLevel, speakerLevel, samples ->
+            // Update the overlay with audio level info for debugging
+            val statusMsg = "Mic: %.4f | Speaker: %.4f | Samples: %d".format(micLevel, speakerLevel, samples)
+            overlayState = overlayState.copy(audioStatus = statusMsg)
+        }
+
+        serviceScope.launch {
+            neatAudioManager?.error?.collectLatest { error ->
+                if (error != null) {
+                    Log.e(TAG, "Audio error: $error")
+                    overlayState = overlayState.copy(audioStatus = "Error: $error")
+                }
+            }
+        }
+    }
+
+    /**
+     * Toggle audio listening on/off.
+     */
+    fun toggleListening() {
+        val isCurrentlyListening = overlayState.isListening
+        Log.d(TAG, "toggleListening called, current state: $isCurrentlyListening")
+
+        if (isCurrentlyListening) {
+            neatAudioManager?.stopRecording()
+            overlayState = overlayState.copy(
+                isListening = false,
+                audioStatus = "Stopped"
+            )
+        } else {
+            val success = neatAudioManager?.startRecording() ?: false
+            overlayState = overlayState.copy(
+                isListening = success,
+                audioStatus = if (success) "Starting..." else "Failed to start"
+            )
+        }
+    }
+
     private fun stopOverlay() {
         Log.d(TAG, "Stopping overlay")
+
+        // Stop audio recording
+        neatAudioManager?.destroy()
+        neatAudioManager = null
 
         serviceScope.launch {
             apiClient?.leaveGame()
@@ -367,10 +425,10 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     private fun createFabOverlay() {
         // Create a small FAB-only overlay
         // Use fixed pixel size to minimize the touchable area
-        // 56dp (main FAB) + 48dp (others FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 12dp (indicator) + 32dp (spacing) = ~244dp
+        // 56dp (main FAB) + 48dp (others FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 48dp (mic FAB) + 12dp (indicator) + 40dp (spacing) + ~40dp (text) = ~340dp
         val density = resources.displayMetrics.density
-        val width = (70 * density).toInt()  // ~70dp wide for FABs
-        val height = (260 * density).toInt() // ~260dp tall for stacked FABs (4 buttons + indicator)
+        val width = (100 * density).toInt()  // ~100dp wide for FABs + status text
+        val height = (380 * density).toInt() // ~380dp tall for stacked FABs (5 buttons + indicator + status)
 
         val fabParams = WindowManager.LayoutParams(
             width,
@@ -415,6 +473,10 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                     onReset = {
                         Log.d(TAG, "Open app button clicked!")
                         openMainApp()
+                    },
+                    onToggleMic = {
+                        Log.d(TAG, "Mic button clicked!")
+                        toggleListening()
                     }
                 )
             }

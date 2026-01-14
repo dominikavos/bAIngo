@@ -28,6 +28,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.GridOn
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
@@ -66,14 +68,41 @@ fun FabButtons(
     onToggleMyBoard: () -> Unit,
     onToggleOthers: () -> Unit,
     onDetectMeeting: (() -> Unit)? = null,
-    onReset: (() -> Unit)? = null
+    onReset: (() -> Unit)? = null,
+    onToggleMic: (() -> Unit)? = null
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Audio status text (shows mic level when listening)
+        if (state.audioStatus.isNotEmpty()) {
+            Text(
+                text = state.audioStatus,
+                color = Color.White,
+                fontSize = 8.sp,
+                maxLines = 2,
+                modifier = Modifier
+                    .background(Color.Black.copy(alpha = 0.7f), RoundedCornerShape(4.dp))
+                    .padding(4.dp)
+            )
+        }
+
         // Connection indicator
         ConnectionIndicator(state.connectionState)
+
+        // Microphone button - toggle listening
+        FloatingActionButton(
+            onClick = { onToggleMic?.invoke() },
+            containerColor = if (state.isListening) BingoOrange else Color.Gray,
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(
+                imageVector = if (state.isListening) Icons.Default.Mic else Icons.Default.MicOff,
+                contentDescription = if (state.isListening) "Stop listening" else "Start listening",
+                tint = Color.White
+            )
+        }
 
         // Reset button
         FloatingActionButton(
@@ -452,11 +481,11 @@ fun OverlayCell(
         if (showWord && word.isNotEmpty()) {
             Text(
                 text = word.uppercase(),
-                fontSize = if (isFreeSpace) 10.sp else 8.sp,
+                fontSize = if (isFreeSpace) 14.sp else 12.sp,
                 fontWeight = if (isMarked) FontWeight.Bold else FontWeight.Normal,
                 textAlign = TextAlign.Center,
                 color = if (isMarked) Color(0xFF2E7D32) else Color.DarkGray,
-                maxLines = 2,
+                maxLines = 3,
                 modifier = Modifier.padding(2.dp)
             )
         }

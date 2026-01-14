@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -72,21 +71,13 @@ fun BingoCellView(
             text = cell.word.uppercase(),
             style = MaterialTheme.typography.labelMedium.copy(
                 fontWeight = if (cell.isMarked) FontWeight.Bold else FontWeight.Medium,
-                fontSize = if (cell.isFreeSpace) 14.sp else 10.sp
+                fontSize = if (cell.isFreeSpace) 18.sp else 14.sp
             ),
             color = textColor,
             textAlign = TextAlign.Center,
             maxLines = 3,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(4.dp)
-                .wrapContentHeight(Alignment.CenterVertically)
+            modifier = Modifier.padding(4.dp)
         )
     }
-}
-
-@Composable
-private fun Modifier.wrapContentHeight(alignment: Alignment.Vertical): Modifier {
-    return this
 }
