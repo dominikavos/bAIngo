@@ -3,19 +3,40 @@
 Meeting Bingo Server
 Manages game state for multiplayer bingo sessions.
 Each meeting has its own game room where players can join and share their progress.
+Includes local Whisper transcription for speech-to-text.
 """
 
 import asyncio
+import io
 import json
+import os
+import re
+import tempfile
 import uuid
 from datetime import datetime
 from typing import Dict, List, Optional, Set
 from dataclasses import dataclass, field, asdict
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
+# Whisper model (loaded lazily)
+whisper_model = None
+
+def get_whisper_model():
+    """Lazy load the Whisper model."""
+    global whisper_model
+    if whisper_model is None:
+        # Use 'base' model for fast loading - good for hackathon
+        # Options: tiny (fastest), base, small, medium (slow), large-v3 (slowest)
+        model_size = os.environ.get("WHISPER_MODEL", "base")
+        print(f"[WHISPER] Loading faster-whisper model ({model_size})...")
+        from faster_whisper import WhisperModel
+        whisper_model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        print("[WHISPER] Model loaded successfully")
+    return whisper_model
 
 
 # Data models
@@ -24,6 +45,7 @@ class PlayerState:
     player_id: str
     player_name: str
     marked_cells: List[List[bool]] = field(default_factory=lambda: [[False]*5 for _ in range(5)])
+    words: List[List[str]] = field(default_factory=lambda: [[""]*5 for _ in range(5)])
     has_bingo: bool = False
     connected: bool = True
     last_seen: datetime = field(default_factory=datetime.now)
@@ -37,6 +59,7 @@ class PlayerState:
             "player_id": self.player_id,
             "player_name": self.player_name,
             "marked_cells": self.marked_cells,
+            "words": self.words,
             "has_bingo": self.has_bingo,
             "connected": self.connected
         }
@@ -464,6 +487,146 @@ async def websocket_endpoint(websocket: WebSocket, meeting_id: str, player_id: s
                 "player_id": player_id,
                 "player_name": room.players[player_id].player_name
             })
+
+
+# ============== TRANSCRIPTION ENDPOINTS ==============
+
+def normalize_text(text: str) -> str:
+    """Normalize text for matching - lowercase, remove punctuation."""
+    return re.sub(r'[^\w\s]', '', text.lower())
+
+
+def find_matching_words(transcript: str, words: List[List[str]]) -> List[tuple]:
+    """
+    Find which bingo words appear in the transcript.
+    Returns list of (row, col) tuples for matching cells.
+    """
+    normalized_transcript = normalize_text(transcript)
+    matches = []
+
+    for row in range(5):
+        for col in range(5):
+            word = words[row][col]
+            if not word or word.upper() == "FREE":
+                continue
+
+            normalized_word = normalize_text(word)
+            if normalized_word and normalized_word in normalized_transcript:
+                matches.append((row, col))
+
+    return matches
+
+
+@app.post("/api/transcribe")
+async def transcribe_audio(
+    audio: UploadFile = File(...),
+    meeting_id: str = Form(...)
+):
+    """
+    Transcribe audio and auto-mark matching bingo cells for all players in the room.
+    Accepts WAV audio file.
+    """
+    print(f"[TRANSCRIBE] Received audio for meeting_id={meeting_id}, size={audio.size if hasattr(audio, 'size') else 'unknown'}")
+
+    # Read audio data
+    audio_data = await audio.read()
+    print(f"[TRANSCRIBE] Audio data size: {len(audio_data)} bytes")
+
+    # Save to temp file for Whisper
+    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_file:
+        tmp_file.write(audio_data)
+        tmp_path = tmp_file.name
+
+    try:
+        # Transcribe with Whisper
+        model = get_whisper_model()
+        segments, info = model.transcribe(tmp_path, language="en")
+
+        # Combine all segments
+        transcript = " ".join(segment.text for segment in segments).strip()
+        print(f"[TRANSCRIBE] Result: '{transcript}'")
+
+        # If room exists, check for matching words and mark cells
+        marked_cells_info = []
+        if meeting_id in game_rooms:
+            room = game_rooms[meeting_id]
+
+            for player_id, player in room.players.items():
+                matches = find_matching_words(transcript, player.words)
+
+                for row, col in matches:
+                    if not player.marked_cells[row][col]:
+                        player.marked_cells[row][col] = True
+                        word = player.words[row][col]
+                        marked_cells_info.append({
+                            "player_id": player_id,
+                            "player_name": player.player_name,
+                            "row": row,
+                            "col": col,
+                            "word": word
+                        })
+                        print(f"[TRANSCRIBE] Marked '{word}' for {player.player_name} at ({row},{col})")
+
+                # Check for bingo
+                if matches:
+                    player.has_bingo = check_bingo(player.marked_cells)
+
+            # Broadcast transcript and updates to all players
+            await broadcast_to_room(room, {
+                "type": "transcript",
+                "text": transcript,
+                "marked_cells": marked_cells_info
+            })
+
+            # Broadcast updated player states
+            for player_id, player in room.players.items():
+                await broadcast_to_room(room, {
+                    "type": "player_updated",
+                    "player": player.to_dict()
+                })
+
+                if player.has_bingo:
+                    await broadcast_to_room(room, {
+                        "type": "bingo",
+                        "player_id": player_id,
+                        "player_name": player.player_name
+                    })
+
+        return {
+            "status": "ok",
+            "transcript": transcript,
+            "language": info.language,
+            "marked_cells": marked_cells_info
+        }
+
+    except Exception as e:
+        print(f"[TRANSCRIBE] Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        # Clean up temp file
+        try:
+            os.unlink(tmp_path)
+        except:
+            pass
+
+
+@app.post("/api/room/{meeting_id}/player/{player_id}/words")
+async def set_player_words(meeting_id: str, player_id: str, words: List[List[str]]):
+    """Set the bingo words for a player's card."""
+    if meeting_id not in game_rooms:
+        raise HTTPException(status_code=404, detail="Room not found")
+
+    room = game_rooms[meeting_id]
+
+    if player_id not in room.players:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    player = room.players[player_id]
+    player.words = words
+
+    print(f"[WORDS] Set words for {player.player_name}: {sum(len(row) for row in words)} words")
+
+    return {"status": "ok"}
 
 
 if __name__ == "__main__":

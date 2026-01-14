@@ -43,13 +43,24 @@ data class JoinGameResponse(
 )
 
 @Serializable
+data class MarkedCellInfo(
+    val player_id: String,
+    val player_name: String,
+    val row: Int,
+    val col: Int,
+    val word: String
+)
+
+@Serializable
 data class WebSocketMessage(
     val type: String,
     val player: PlayerState? = null,
     val player_id: String? = null,
     val player_name: String? = null,
     val players: List<PlayerState>? = null,
-    val message: String? = null
+    val message: String? = null,
+    val text: String? = null,  // for transcript messages
+    val marked_cells: List<MarkedCellInfo>? = null  // cells marked by transcription
 )
 
 /**
@@ -93,6 +104,7 @@ class BingoApiClient(
         data class PlayerLeft(val playerId: String, val playerName: String) : GameEvent()
         data class PlayerUpdated(val player: PlayerState) : GameEvent()
         data class Bingo(val playerId: String, val playerName: String) : GameEvent()
+        data class Transcript(val text: String, val markedCells: List<MarkedCellInfo>) : GameEvent()
         data class Error(val message: String) : GameEvent()
     }
 
@@ -146,6 +158,52 @@ class BingoApiClient(
             Result.success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "Error marking cell", e)
+            Result.failure(e)
+        }
+    }
+
+    /**
+     * Set the bingo words for the current player.
+     * This allows the server to track which words each player has on their card.
+     */
+    suspend fun setWords(words: List<List<String>>): Result<Unit> = withContext(Dispatchers.IO) {
+        val playerId = currentPlayerId ?: return@withContext Result.failure(Exception("Not joined"))
+        val meetingId = currentMeetingId ?: return@withContext Result.failure(Exception("Not joined"))
+
+        try {
+            // Build JSON array manually for simplicity
+            val wordsJson = buildString {
+                append("[")
+                words.forEachIndexed { rowIndex, row ->
+                    if (rowIndex > 0) append(",")
+                    append("[")
+                    row.forEachIndexed { colIndex, word ->
+                        if (colIndex > 0) append(",")
+                        append("\"")
+                        append(word.replace("\"", "\\\""))
+                        append("\"")
+                    }
+                    append("]")
+                }
+                append("]")
+            }
+            val mediaType = "application/json".toMediaType()
+            val request = Request.Builder()
+                .url("$serverUrl/api/room/$meetingId/player/$playerId/words")
+                .post(wordsJson.toRequestBody(mediaType))
+                .build()
+
+            val response = client.newCall(request).execute()
+
+            if (!response.isSuccessful) {
+                Log.e(TAG, "Failed to set words: ${response.code}")
+                return@withContext Result.failure(Exception("Failed to set words: ${response.code}"))
+            }
+
+            Log.d(TAG, "Successfully set words for player $playerId")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error setting words", e)
             Result.failure(e)
         }
     }
@@ -262,6 +320,13 @@ class BingoApiClient(
                 val playerName = message.player_name ?: "Unknown"
                 scope.launch {
                     _events.emit(GameEvent.Bingo(playerId, playerName))
+                }
+            }
+            "transcript" -> {
+                val text = message.text ?: ""
+                val markedCells = message.marked_cells ?: emptyList()
+                scope.launch {
+                    _events.emit(GameEvent.Transcript(text, markedCells))
                 }
             }
             "error" -> {

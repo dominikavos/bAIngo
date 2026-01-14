@@ -16,14 +16,21 @@ import java.nio.ByteOrder
 import java.util.concurrent.TimeUnit
 
 /**
- * Transcribes audio using OpenAI's Whisper API.
+ * Transcribes audio using a local faster-whisper server.
  * Buffers audio samples and sends them periodically for transcription.
+ * The server also handles auto-marking bingo cells for all players.
  */
-class WhisperTranscriber(private val apiKey: String) {
+class WhisperTranscriber(
+    private val serverUrl: String,
+    private val meetingId: String
+) {
+
+    init {
+        Log.d(TAG, "WhisperTranscriber initialized. Server: $serverUrl, Meeting: $meetingId")
+    }
 
     companion object {
         private const val TAG = "WhisperTranscriber"
-        private const val WHISPER_API_URL = "https://api.openai.com/v1/audio/transcriptions"
         private const val SAMPLE_RATE = 48000 // NeatDevKit uses 48kHz
         private const val BUFFER_DURATION_SECONDS = 5 // Send audio every 5 seconds
         private const val BUFFER_SIZE = SAMPLE_RATE * BUFFER_DURATION_SECONDS
@@ -31,7 +38,7 @@ class WhisperTranscriber(private val apiKey: String) {
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(120, TimeUnit.SECONDS) // Longer timeout for local transcription
         .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
@@ -41,7 +48,11 @@ class WhisperTranscriber(private val apiKey: String) {
     private var onTranscript: ((String) -> Unit)? = null
 
     @Serializable
-    data class WhisperResponse(val text: String)
+    data class TranscribeResponse(
+        val status: String,
+        val transcript: String,
+        val language: String? = null
+    )
 
     fun setOnTranscriptListener(listener: (String) -> Unit) {
         onTranscript = listener
@@ -56,7 +67,14 @@ class WhisperTranscriber(private val apiKey: String) {
             audioBuffer.addAll(samples.toList())
         }
 
-        if (audioBuffer.size >= BUFFER_SIZE) {
+        val currentSize = audioBuffer.size
+        // Log buffer progress periodically (every ~1 second at 48kHz)
+        if (currentSize % 48000 == 0 && currentSize > 0) {
+            Log.d(TAG, "Buffer: $currentSize / $BUFFER_SIZE samples (${currentSize * 100 / BUFFER_SIZE}%)")
+        }
+
+        if (currentSize >= BUFFER_SIZE) {
+            Log.d(TAG, "Buffer full ($currentSize samples)! Triggering transcription...")
             val samplesToProcess: FloatArray
             synchronized(audioBuffer) {
                 samplesToProcess = audioBuffer.toFloatArray()
@@ -96,35 +114,42 @@ class WhisperTranscriber(private val apiKey: String) {
     private suspend fun transcribe(samples: FloatArray) {
         if (samples.isEmpty()) return
 
+        Log.d(TAG, "Starting transcription of ${samples.size} samples (${samples.size / SAMPLE_RATE}s of audio)")
+
         try {
             val wavData = samplesToWav(samples, SAMPLE_RATE)
-            val transcript = sendToWhisper(wavData)
+            Log.d(TAG, "WAV data created: ${wavData.size} bytes")
+
+            val transcript = sendToServer(wavData)
+            Log.d(TAG, "Server returned: '$transcript'")
 
             if (transcript.isNotBlank()) {
-                Log.d(TAG, "Transcript: $transcript")
+                Log.d(TAG, "Invoking transcript listener with: $transcript")
                 onTranscript?.invoke(transcript)
+            } else {
+                Log.d(TAG, "Transcript was blank, not invoking listener")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Transcription error", e)
+            Log.e(TAG, "Transcription error: ${e.message}", e)
         }
     }
 
-    private suspend fun sendToWhisper(wavData: ByteArray): String = withContext(Dispatchers.IO) {
+    private suspend fun sendToServer(wavData: ByteArray): String = withContext(Dispatchers.IO) {
+        val transcribeUrl = "$serverUrl/api/transcribe"
+        Log.d(TAG, "Sending audio to: $transcribeUrl")
+
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart(
-                "file",
+                "audio",
                 "audio.wav",
                 wavData.toRequestBody("audio/wav".toMediaType())
             )
-            .addFormDataPart("model", "whisper-1")
-            .addFormDataPart("language", "en")
-            .addFormDataPart("response_format", "json")
+            .addFormDataPart("meeting_id", meetingId)
             .build()
 
         val request = Request.Builder()
-            .url(WHISPER_API_URL)
-            .header("Authorization", "Bearer $apiKey")
+            .url(transcribeUrl)
             .post(requestBody)
             .build()
 
@@ -132,13 +157,15 @@ class WhisperTranscriber(private val apiKey: String) {
 
         if (!response.isSuccessful) {
             val errorBody = response.body?.string() ?: "No error body"
-            Log.e(TAG, "Whisper API error: ${response.code} - $errorBody")
-            throw Exception("Whisper API error: ${response.code}")
+            Log.e(TAG, "Server error: ${response.code} - $errorBody")
+            throw Exception("Server error: ${response.code}")
         }
 
         val responseBody = response.body?.string() ?: throw Exception("Empty response")
-        val whisperResponse = json.decodeFromString<WhisperResponse>(responseBody)
-        whisperResponse.text
+        Log.d(TAG, "Response body: $responseBody")
+
+        val transcribeResponse = json.decodeFromString<TranscribeResponse>(responseBody)
+        transcribeResponse.transcript
     }
 
     /**

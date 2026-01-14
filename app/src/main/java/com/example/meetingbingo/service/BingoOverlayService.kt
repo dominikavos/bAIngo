@@ -27,7 +27,6 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
-import com.example.meetingbingo.BuildConfig
 import com.example.meetingbingo.MainActivity
 import com.example.meetingbingo.MeetingBingoApplication
 import com.example.meetingbingo.R
@@ -42,6 +41,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -63,6 +65,14 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
         // Shared state for overlay
         var overlayState by mutableStateOf(OverlayState())
+
+        // Observable transcript for debugging in SetupScreen
+        private val _lastTranscript = MutableStateFlow("")
+        val lastTranscript: StateFlow<String> = _lastTranscript.asStateFlow()
+
+        fun updateTranscript(text: String) {
+            _lastTranscript.value = text
+        }
 
         fun updateMarkedCells(cells: List<List<Boolean>>) {
             overlayState = overlayState.copy(myMarkedCells = cells)
@@ -110,9 +120,6 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     private var apiClient: BingoApiClient? = null
     private var neatAudioManager: NeatAudioManager? = null
     private var whisperTranscriber: WhisperTranscriber? = null
-
-    // OpenAI API key from BuildConfig (set in local.properties or environment)
-    private val openAiApiKey = BuildConfig.OPENAI_API_KEY
 
     private var currentMeetingId: String = "1234"
     private var currentPlayerName: String = "Player"
@@ -215,6 +222,16 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
             apiClient?.joinGame(meetingId, playerName)?.onSuccess { response ->
                 Log.d(TAG, "Joined game with ${response.players.size} other players")
                 overlayState = overlayState.copy(currentMeetingId = meetingId)
+
+                // Send our bingo words to the server
+                val words = overlayState.myWords
+                if (words.isNotEmpty()) {
+                    apiClient?.setWords(words)?.onSuccess {
+                        Log.d(TAG, "Successfully sent bingo words to server")
+                    }?.onFailure { e ->
+                        Log.e(TAG, "Failed to send bingo words", e)
+                    }
+                }
             }?.onFailure { e ->
                 Log.e(TAG, "Failed to join game", e)
             }
@@ -228,6 +245,35 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         serviceScope.launch {
             apiClient?.connectionState?.collectLatest { state ->
                 overlayState = overlayState.copy(connectionState = state)
+            }
+        }
+
+        // Collect game events (including transcripts from server)
+        serviceScope.launch {
+            apiClient?.events?.collectLatest { event ->
+                when (event) {
+                    is BingoApiClient.GameEvent.Transcript -> {
+                        Log.d(TAG, "Transcript from server: ${event.text}")
+                        overlayState = overlayState.copy(
+                            lastTranscript = event.text,
+                            audioStatus = "Server: ${event.text.take(30)}..."
+                        )
+                        updateTranscript(event.text)
+
+                        // Check if any of the marked cells belong to us
+                        // (The server marks cells and broadcasts player_updated, but we can log it)
+                        event.markedCells.forEach { cell ->
+                            Log.d(TAG, "Cell marked: ${cell.word} for ${cell.player_name} at (${cell.row}, ${cell.col})")
+                        }
+                    }
+                    is BingoApiClient.GameEvent.PlayerUpdated -> {
+                        Log.d(TAG, "Player updated: ${event.player.player_name}, bingo: ${event.player.has_bingo}")
+                    }
+                    is BingoApiClient.GameEvent.Bingo -> {
+                        Log.d(TAG, "BINGO! ${event.playerName} got bingo!")
+                    }
+                    else -> {}
+                }
             }
         }
 
@@ -301,6 +347,16 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                 // Join new game
                 apiClient?.joinGame(newMeetingId, currentPlayerName)?.onSuccess { response ->
                     Log.d(TAG, "Joined new meeting with ${response.players.size} other players")
+
+                    // Send our bingo words to the server for the new meeting
+                    val words = overlayState.myWords
+                    if (words.isNotEmpty()) {
+                        apiClient?.setWords(words)?.onSuccess {
+                            Log.d(TAG, "Successfully sent bingo words to new meeting")
+                        }?.onFailure { e ->
+                            Log.e(TAG, "Failed to send bingo words to new meeting", e)
+                        }
+                    }
                 }?.onFailure { e ->
                     Log.e(TAG, "Failed to join new meeting", e)
                 }
@@ -358,15 +414,18 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
         Log.d(TAG, "Audio recording available: ${neatAudioManager?.isAvailable?.value}")
 
-        // Initialize Whisper transcriber
-        whisperTranscriber = WhisperTranscriber(openAiApiKey)
+        // Initialize Whisper transcriber with server URL and meeting ID
+        // The server handles transcription and auto-marks cells for all players
+        whisperTranscriber = WhisperTranscriber(currentServerUrl, currentMeetingId)
         whisperTranscriber?.setOnTranscriptListener { transcript ->
-            Log.d(TAG, "Transcript received: $transcript")
+            Log.d(TAG, "Transcript received in overlay service: $transcript")
             overlayState = overlayState.copy(
                 lastTranscript = transcript,
                 audioStatus = "Transcribed: ${transcript.take(30)}..."
             )
-            // TODO: Process transcript to mark bingo cells
+            // Update static flow for SetupScreen observation
+            updateTranscript(transcript)
+            // Note: Cell marking is now handled server-side and broadcast via WebSocket
         }
 
         neatAudioManager?.setOnAudioReceivedListener { micLevel, _, samples ->

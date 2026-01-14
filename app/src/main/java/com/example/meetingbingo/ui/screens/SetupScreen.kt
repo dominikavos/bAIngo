@@ -67,6 +67,9 @@ fun SetupScreen(
     // Observe detected meeting ID from overlay service
     val detectedMeetingId by BingoAccessibilityService.extractedMeetingId.collectAsState()
 
+    // Observe transcript for debugging
+    val lastTranscript by BingoOverlayService.lastTranscript.collectAsState()
+
     var meetingId by remember { mutableStateOf("") }
     var playerName by remember { mutableStateOf("Player") }
     var serverUrl by remember { mutableStateOf("http://10.47.6.1:8080") }
@@ -321,6 +324,38 @@ fun SetupScreen(
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.ExtraBold,
                             color = BingoOrange
+                        )
+                    }
+                }
+            }
+
+            // Transcript debug display
+            if (lastTranscript.isNotBlank()) {
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFE8F5E9) // Light green
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Last Transcript:",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF2E7D32)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = lastTranscript,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color(0xFF1B5E20)
                         )
                     }
                 }
