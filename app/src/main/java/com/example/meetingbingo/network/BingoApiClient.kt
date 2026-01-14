@@ -95,6 +95,9 @@ class BingoApiClient(
     private var currentPlayerId: String? = null
     private var currentMeetingId: String? = null
 
+    /** Get the current player ID (our own ID) */
+    fun getPlayerId(): String? = currentPlayerId
+
     enum class ConnectionState {
         DISCONNECTED, CONNECTING, CONNECTED, ERROR
     }

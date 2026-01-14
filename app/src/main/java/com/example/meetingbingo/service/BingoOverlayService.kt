@@ -268,6 +268,14 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                     }
                     is BingoApiClient.GameEvent.PlayerUpdated -> {
                         Log.d(TAG, "Player updated: ${event.player.player_name}, bingo: ${event.player.has_bingo}")
+                        // Check if this update is for ourselves
+                        if (event.player.player_id == apiClient?.getPlayerId()) {
+                            Log.d(TAG, "This is our own update! Updating myMarkedCells")
+                            overlayState = overlayState.copy(
+                                myMarkedCells = event.player.marked_cells,
+                                myHasBingo = event.player.has_bingo
+                            )
+                        }
                     }
                     is BingoApiClient.GameEvent.Bingo -> {
                         Log.d(TAG, "BINGO! ${event.playerName} got bingo!")
@@ -428,16 +436,17 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
             // Note: Cell marking is now handled server-side and broadcast via WebSocket
         }
 
-        neatAudioManager?.setOnAudioReceivedListener { micLevel, _, samples ->
+        neatAudioManager?.setOnAudioReceivedListener { micLevel, speakerLevel, samples ->
             // Update the overlay with audio level and buffer info
             val bufferMs = whisperTranscriber?.getBufferDurationMs() ?: 0
-            val statusMsg = "Mic: %.3f | Buf: ${bufferMs/1000}s".format(micLevel)
+            val statusMsg = "Spk: %.3f | Buf: ${bufferMs/1000}s".format(speakerLevel)
             overlayState = overlayState.copy(audioStatus = statusMsg)
         }
 
-        neatAudioManager?.setOnRawAudioReceivedListener { micSamples, _ ->
-            // Send mic samples to transcriber (use mic for now, can switch to speaker later)
-            micSamples?.let { samples ->
+        neatAudioManager?.setOnRawAudioReceivedListener { micSamples, speakerSamples ->
+            // Send speaker samples to transcriber (not mic, so we don't hear ourselves)
+            // This way we only transcribe what others say, preventing self-marking
+            speakerSamples?.let { samples ->
                 serviceScope.launch {
                     whisperTranscriber?.addSamples(samples)
                 }
@@ -452,12 +461,20 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                 }
             }
         }
+
+        // Auto-start listening when overlay starts
+        Log.d(TAG, "Auto-starting audio recording")
+        val success = neatAudioManager?.startRecording() ?: false
+        overlayState = overlayState.copy(
+            isListening = success,
+            audioStatus = if (success) "Listening..." else "Failed to start"
+        )
     }
 
     /**
      * Toggle audio listening on/off.
      */
-    fun toggleListening() {
+    private fun toggleListening() {
         val isCurrentlyListening = overlayState.isListening
         Log.d(TAG, "toggleListening called, current state: $isCurrentlyListening")
 
@@ -520,7 +537,7 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         // 56dp (main FAB) + 48dp (others FAB) + 48dp (detect FAB) + 48dp (reset FAB) + 48dp (mic FAB) + 12dp (indicator) + 40dp (spacing) + ~40dp (text) = ~340dp
         val density = resources.displayMetrics.density
         val width = (100 * density).toInt()  // ~100dp wide for FABs + status text
-        val height = (380 * density).toInt() // ~380dp tall for stacked FABs (5 buttons + indicator + status)
+        val height = (330 * density).toInt() // ~330dp tall for stacked FABs (4 buttons + indicator + status)
 
         val fabParams = WindowManager.LayoutParams(
             width,
@@ -565,10 +582,6 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
                     onReset = {
                         Log.d(TAG, "Open app button clicked!")
                         openMainApp()
-                    },
-                    onToggleMic = {
-                        Log.d(TAG, "Mic button clicked!")
-                        toggleListening()
                     }
                 )
             }

@@ -28,8 +28,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.GridOn
-import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
@@ -68,8 +66,7 @@ fun FabButtons(
     onToggleMyBoard: () -> Unit,
     onToggleOthers: () -> Unit,
     onDetectMeeting: (() -> Unit)? = null,
-    onReset: (() -> Unit)? = null,
-    onToggleMic: (() -> Unit)? = null
+    onReset: (() -> Unit)? = null
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -104,19 +101,6 @@ fun FabButtons(
 
         // Connection indicator
         ConnectionIndicator(state.connectionState)
-
-        // Microphone button - toggle listening
-        FloatingActionButton(
-            onClick = { onToggleMic?.invoke() },
-            containerColor = if (state.isListening) BingoOrange else Color.Gray,
-            modifier = Modifier.size(48.dp)
-        ) {
-            Icon(
-                imageVector = if (state.isListening) Icons.Default.Mic else Icons.Default.MicOff,
-                contentDescription = if (state.isListening) "Stop listening" else "Start listening",
-                tint = Color.White
-            )
-        }
 
         // Reset button
         FloatingActionButton(
