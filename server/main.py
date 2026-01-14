@@ -21,22 +21,18 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from nltk.stem import PorterStemmer
 
-# Whisper model (loaded lazily)
-whisper_model = None
+# Initialize stemmer for word matching
+stemmer = PorterStemmer()
 
-def get_whisper_model():
-    """Lazy load the Whisper model."""
-    global whisper_model
-    if whisper_model is None:
-        # Use 'base' model for fast loading - good for hackathon
-        # Options: tiny (fastest), base, small, medium (slow), large-v3 (slowest)
-        model_size = os.environ.get("WHISPER_MODEL", "base")
-        print(f"[WHISPER] Loading faster-whisper model ({model_size})...")
-        from faster_whisper import WhisperModel
-        whisper_model = WhisperModel(model_size, device="cpu", compute_type="int8")
-        print("[WHISPER] Model loaded successfully")
-    return whisper_model
+# Whisper model - loaded at startup
+from faster_whisper import WhisperModel
+
+model_size = os.environ.get("WHISPER_MODEL", "base")
+print(f"[WHISPER] Loading faster-whisper model ({model_size})...")
+whisper_model = WhisperModel(model_size, device="cpu", compute_type="int8")
+print("[WHISPER] Model loaded successfully")
 
 
 # Data models
@@ -496,12 +492,71 @@ def normalize_text(text: str) -> str:
     return re.sub(r'[^\w\s]', '', text.lower())
 
 
+def split_hyphenated(text: str) -> List[str]:
+    """Split hyphenated words into separate words, lowercase."""
+    # Replace hyphens with spaces, then normalize
+    return re.sub(r'[^\w\s]', ' ', text.lower()).split()
+
+
+def stem_words(words: List[str]) -> List[str]:
+    """Apply Porter stemming to a list of words."""
+    return [stemmer.stem(w) for w in words]
+
+
+def phrase_matches_transcript(phrase_stems: List[str], transcript_stems: List[str], max_gap: int = 3) -> bool:
+    """
+    Check if all stemmed words in the phrase appear in the transcript in order,
+    allowing other words in between (up to max_gap words between consecutive matches).
+
+    Example: phrase "think outside box" matches transcript "thinking outside the box"
+             because stemmed forms match: "think" matches "think", etc.
+
+    The max_gap parameter (default 3) prevents matching words that are too far apart
+    (e.g., "win" in two different sentences). This allows for natural insertions like:
+    - "take it offline" (1 word gap)
+    - "take this thing offline" (2 word gap)
+    - "it's a win win" (0 word gap)
+    """
+    if not phrase_stems:
+        return False
+
+    phrase_idx = 0
+    last_match_pos = -1
+
+    for i, transcript_stem in enumerate(transcript_stems):
+        if transcript_stem == phrase_stems[phrase_idx]:
+            # Check gap from previous match (skip for first match)
+            if phrase_idx > 0 and (i - last_match_pos - 1) > max_gap:
+                # Gap too large, reset and try again from this position
+                phrase_idx = 0
+                if transcript_stem == phrase_stems[0]:
+                    phrase_idx = 1
+                    last_match_pos = i
+                continue
+
+            last_match_pos = i
+            phrase_idx += 1
+            if phrase_idx == len(phrase_stems):
+                return True
+
+    return False
+
+
 def find_matching_words(transcript: str, words: List[List[str]]) -> List[tuple]:
     """
     Find which bingo words appear in the transcript.
     Returns list of (row, col) tuples for matching cells.
+
+    Uses flexible matching:
+    - Stemming to handle verb conjugations (thinking -> think, synergies -> synergi)
+    - Phrase words must appear in order but other words can appear in between
+    - Handles "Take Offline" matching "take it offline"
+    - Handles "win-win" matching "win win" (hyphenated phrases split into words)
+    - Uses max gap of 3 words to prevent matching across unrelated sentences
     """
     normalized_transcript = normalize_text(transcript)
+    transcript_words = normalized_transcript.split()
+    transcript_stems = stem_words(transcript_words)
     matches = []
 
     for row in range(5):
@@ -510,9 +565,23 @@ def find_matching_words(transcript: str, words: List[List[str]]) -> List[tuple]:
             if not word or word.upper() == "FREE":
                 continue
 
-            normalized_word = normalize_text(word)
-            if normalized_word and normalized_word in normalized_transcript:
-                matches.append((row, col))
+            # Split hyphenated words (e.g., "win-win" -> ["win", "win"])
+            phrase_words = split_hyphenated(word)
+
+            if not phrase_words:
+                continue
+
+            # Stem the phrase words
+            phrase_stems = stem_words(phrase_words)
+
+            # For single words, use simple stemmed word matching
+            if len(phrase_stems) == 1:
+                if phrase_stems[0] in transcript_stems:
+                    matches.append((row, col))
+            else:
+                # For multi-word phrases, check if stemmed words appear in order (with gap limit)
+                if phrase_matches_transcript(phrase_stems, transcript_stems):
+                    matches.append((row, col))
 
     return matches
 
@@ -565,8 +634,7 @@ async def transcribe_audio(
             print(f"[TRANSCRIBE] WAV analysis error: {wav_err}")
 
         # Transcribe with Whisper
-        model = get_whisper_model()
-        segments, info = model.transcribe(tmp_path, language="en")
+        segments, info = whisper_model.transcribe(tmp_path, language="en")
 
         # Combine all segments
         transcript = " ".join(segment.text for segment in segments).strip()
