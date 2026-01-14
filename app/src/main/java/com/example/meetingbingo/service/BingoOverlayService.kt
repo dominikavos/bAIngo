@@ -57,6 +57,11 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         private const val CHANNEL_ID = "bingo_overlay_channel"
         private const val NOTIFICATION_ID = 2
 
+        // Audio source selection for transcription
+        // true = use microphone (easier to debug, picks up room audio)
+        // false = use speaker channel (what we ultimately want for meeting audio)
+        private const val USE_MICROPHONE_FOR_TRANSCRIPTION = false
+
         const val ACTION_START = "com.example.meetingbingo.START_OVERLAY"
         const val ACTION_STOP = "com.example.meetingbingo.STOP_OVERLAY"
         const val EXTRA_MEETING_ID = "meeting_id"
@@ -453,18 +458,18 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         neatAudioManager?.setOnAudioReceivedListener { micLevel, speakerLevel, samples ->
             // Update the overlay with audio level and buffer info
             val bufferMs = whisperTranscriber?.getBufferDurationMs() ?: 0
-            val statusMsg = "Spk: %.3f | Buf: ${bufferMs/1000}s".format(speakerLevel)
+            val activeLevel = if (USE_MICROPHONE_FOR_TRANSCRIPTION) micLevel else speakerLevel
+            val sourceLabel = if (USE_MICROPHONE_FOR_TRANSCRIPTION) "Mic" else "Spk"
+            val statusMsg = "$sourceLabel: %.3f | Buf: ${bufferMs/1000}s".format(activeLevel)
             overlayState = overlayState.copy(audioStatus = statusMsg)
         }
 
         neatAudioManager?.setOnRawAudioReceivedListener { micSamples, speakerSamples ->
-            // Use mic samples - the NeatDevKit speaker channel appears to be empty
-            // The mic picks up room audio including what comes out of the speaker
-            // Note: This means we might pick up our own voice too, but the server
-            // only marks cells for the player who submitted the audio, so it's okay
-            micSamples?.let { samples ->
+            // Select audio source based on configuration
+            val samples = if (USE_MICROPHONE_FOR_TRANSCRIPTION) micSamples else speakerSamples
+            samples?.let {
                 serviceScope.launch {
-                    whisperTranscriber?.addSamples(samples)
+                    whisperTranscriber?.addSamples(it)
                 }
             }
         }
