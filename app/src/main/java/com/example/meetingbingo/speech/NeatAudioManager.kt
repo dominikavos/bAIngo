@@ -37,6 +37,7 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
     val audioLevel: StateFlow<Float> = _audioLevel.asStateFlow()
 
     private var onAudioReceived: ((micLevel: Float, speakerLevel: Float, samples: Int) -> Unit)? = null
+    private var onRawAudioReceived: ((micSamples: FloatArray?, speakerSamples: FloatArray?) -> Unit)? = null
 
     // Keep strong reference to callback to prevent GC
     private var audioCallback: AudioDataCallback? = null
@@ -55,6 +56,10 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
 
     fun setOnAudioReceivedListener(listener: (micLevel: Float, speakerLevel: Float, samples: Int) -> Unit) {
         onAudioReceived = listener
+    }
+
+    fun setOnRawAudioReceivedListener(listener: (micSamples: FloatArray?, speakerSamples: FloatArray?) -> Unit) {
+        onRawAudioReceived = listener
     }
 
     fun startRecording(): Boolean {
@@ -86,7 +91,6 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
         // Create and store callback to prevent GC
         audioCallback = object : AudioDataCallback {
             override fun onAudioData(microphone: FloatArray?, loudspeaker: FloatArray?, numSamples: Int) {
-                Log.e(TAG, "CALLBACK RECEIVED! numSamples=$numSamples, mic=${microphone?.size}, speaker=${loudspeaker?.size}")
                 callbackCount++
                 sampleCount += numSamples
 
@@ -96,12 +100,15 @@ class NeatAudioManager(private val neatDevKit: NeatDevKit?) {
 
                 _audioLevel.value = micLevel
 
-                // Log every callback for debugging
-                val statusMsg = "Callbacks: $callbackCount, Samples: $sampleCount, Mic: %.4f, Speaker: %.4f".format(micLevel, speakerLevel)
-                Log.e(TAG, statusMsg)
-                _audioStatus.value = statusMsg
+                // Log periodically (not every callback to reduce noise)
+                if (callbackCount % 50 == 0) {
+                    val statusMsg = "Callbacks: $callbackCount, Samples: $sampleCount, Mic: %.4f, Speaker: %.4f".format(micLevel, speakerLevel)
+                    Log.d(TAG, statusMsg)
+                }
+                _audioStatus.value = "Mic: %.4f | Samples: %d".format(micLevel, numSamples)
 
                 onAudioReceived?.invoke(micLevel, speakerLevel, numSamples)
+                onRawAudioReceived?.invoke(microphone, loudspeaker)
             }
         }
 

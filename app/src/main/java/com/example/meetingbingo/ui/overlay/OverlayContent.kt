@@ -75,6 +75,20 @@ fun FabButtons(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Transcript display (shows last transcribed text)
+        if (state.lastTranscript.isNotEmpty()) {
+            Text(
+                text = state.lastTranscript.takeLast(100),
+                color = Color.White,
+                fontSize = 9.sp,
+                maxLines = 3,
+                modifier = Modifier
+                    .width(90.dp)
+                    .background(BingoGreen.copy(alpha = 0.9f), RoundedCornerShape(4.dp))
+                    .padding(4.dp)
+            )
+        }
+
         // Audio status text (shows mic level when listening)
         if (state.audioStatus.isNotEmpty()) {
             Text(

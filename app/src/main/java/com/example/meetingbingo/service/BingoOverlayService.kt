@@ -27,12 +27,14 @@ import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
+import com.example.meetingbingo.BuildConfig
 import com.example.meetingbingo.MainActivity
 import com.example.meetingbingo.MeetingBingoApplication
 import com.example.meetingbingo.R
 import com.example.meetingbingo.network.BingoApiClient
 import com.example.meetingbingo.network.PlayerState
 import com.example.meetingbingo.speech.NeatAudioManager
+import com.example.meetingbingo.speech.WhisperTranscriber
 import com.example.meetingbingo.ui.overlay.ContentOverlay
 import com.example.meetingbingo.ui.overlay.FabButtons
 import kotlinx.coroutines.CoroutineScope
@@ -107,6 +109,10 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var apiClient: BingoApiClient? = null
     private var neatAudioManager: NeatAudioManager? = null
+    private var whisperTranscriber: WhisperTranscriber? = null
+
+    // OpenAI API key from BuildConfig (set in local.properties or environment)
+    private val openAiApiKey = BuildConfig.OPENAI_API_KEY
 
     private var currentMeetingId: String = "1234"
     private var currentPlayerName: String = "Player"
@@ -352,10 +358,31 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
         Log.d(TAG, "Audio recording available: ${neatAudioManager?.isAvailable?.value}")
 
-        neatAudioManager?.setOnAudioReceivedListener { micLevel, speakerLevel, samples ->
-            // Update the overlay with audio level info for debugging
-            val statusMsg = "Mic: %.4f | Speaker: %.4f | Samples: %d".format(micLevel, speakerLevel, samples)
+        // Initialize Whisper transcriber
+        whisperTranscriber = WhisperTranscriber(openAiApiKey)
+        whisperTranscriber?.setOnTranscriptListener { transcript ->
+            Log.d(TAG, "Transcript received: $transcript")
+            overlayState = overlayState.copy(
+                lastTranscript = transcript,
+                audioStatus = "Transcribed: ${transcript.take(30)}..."
+            )
+            // TODO: Process transcript to mark bingo cells
+        }
+
+        neatAudioManager?.setOnAudioReceivedListener { micLevel, _, samples ->
+            // Update the overlay with audio level and buffer info
+            val bufferMs = whisperTranscriber?.getBufferDurationMs() ?: 0
+            val statusMsg = "Mic: %.3f | Buf: ${bufferMs/1000}s".format(micLevel)
             overlayState = overlayState.copy(audioStatus = statusMsg)
+        }
+
+        neatAudioManager?.setOnRawAudioReceivedListener { micSamples, _ ->
+            // Send mic samples to transcriber (use mic for now, can switch to speaker later)
+            micSamples?.let { samples ->
+                serviceScope.launch {
+                    whisperTranscriber?.addSamples(samples)
+                }
+            }
         }
 
         serviceScope.launch {
@@ -376,16 +403,22 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         Log.d(TAG, "toggleListening called, current state: $isCurrentlyListening")
 
         if (isCurrentlyListening) {
+            // Flush any remaining audio buffer before stopping
+            serviceScope.launch {
+                whisperTranscriber?.flushBuffer()
+            }
             neatAudioManager?.stopRecording()
             overlayState = overlayState.copy(
                 isListening = false,
                 audioStatus = "Stopped"
             )
         } else {
+            // Clear buffer when starting fresh
+            whisperTranscriber?.clearBuffer()
             val success = neatAudioManager?.startRecording() ?: false
             overlayState = overlayState.copy(
                 isListening = success,
-                audioStatus = if (success) "Starting..." else "Failed to start"
+                audioStatus = if (success) "Listening..." else "Failed to start"
             )
         }
     }
