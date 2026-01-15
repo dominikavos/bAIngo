@@ -126,6 +126,15 @@ object MeetingWords {
         "double-click",
         "rollback",
         "hotfix",
+
+        // Neat-Specific keywords
+        "next slide",
+        "amazing",
+        "over to",
+        "customer win",
+        "go big",
+        "yellow",
+        "workday"
     )
 
     /**
