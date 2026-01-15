@@ -219,6 +219,14 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
         currentServerUrl = serverUrl
         lastMeetingIdChangeTime = System.currentTimeMillis()
 
+        // If meeting ID was pre-specified (not the default), show green button
+        if (meetingId != "1234") {
+            overlayState = overlayState.copy(
+                meetingIdDetectionStatus = MeetingIdDetectionStatus.SUCCESS,
+                detectedMeetingId = meetingId
+            )
+        }
+
         // Initialize API client and connect
         apiClient = BingoApiClient(serverUrl)
 
@@ -420,9 +428,16 @@ class BingoOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
     /**
      * Trigger manual screenshot OCR for meeting ID detection.
      * User should have Meeting info dialog visible when calling this.
+     * Can be called again even if already successful (to re-detect/update meeting ID).
      */
     fun triggerScreenshotOcr() {
         Log.d(TAG, "triggerScreenshotOcr called")
+
+        // Reset to detecting state (allows re-detection even if already green)
+        overlayState = overlayState.copy(
+            meetingIdDetectionStatus = MeetingIdDetectionStatus.DETECTING
+        )
+
         val accessibilityService = BingoAccessibilityService.instance
         if (accessibilityService != null) {
             Log.d(TAG, "Triggering manual screenshot OCR")
