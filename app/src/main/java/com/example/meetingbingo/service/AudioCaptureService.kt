@@ -21,6 +21,7 @@ import com.example.meetingbingo.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import android.graphics.Bitmap
 import kotlin.math.sqrt
 
 class AudioCaptureService : Service() {
@@ -32,10 +33,15 @@ class AudioCaptureService : Service() {
         private const val SAMPLE_RATE = 16000
         private const val CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO
         private const val AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT
+
+        // Singleton instance for accessing MediaProjection from other components
+        var instance: AudioCaptureService? = null
+            private set
     }
 
     private val binder = LocalBinder()
     private var mediaProjection: MediaProjection? = null
+    private var screenCapture: MediaProjectionScreenCapture? = null
     private var audioRecord: AudioRecord? = null
     private var captureThread: Thread? = null
     private var isCapturing = false
@@ -62,6 +68,7 @@ class AudioCaptureService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         Log.d(TAG, "Service created")
         createNotificationChannel()
     }
@@ -201,6 +208,8 @@ class AudioCaptureService : Service() {
         }
         audioRecord = null
 
+        stopScreenCapture()
+
         mediaProjection?.stop()
         mediaProjection = null
 
@@ -210,6 +219,7 @@ class AudioCaptureService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        instance = null
         Log.d(TAG, "Service destroyed")
         stopCapturing()
     }
@@ -233,5 +243,46 @@ class AudioCaptureService : Service() {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
+    }
+
+    // ==================== MediaProjection Screenshot API ====================
+
+    /**
+     * Check if MediaProjection is available for screenshot capture.
+     */
+    fun isMediaProjectionAvailable(): Boolean = mediaProjection != null
+
+    /**
+     * Take a single screenshot using MediaProjection.
+     * This is an alternative to AccessibilityService.takeScreenshot() when
+     * accessibility service is not available.
+     *
+     * @param onResult Callback with the captured bitmap, or null if capture failed
+     */
+    fun takeScreenshot(onResult: (Bitmap?) -> Unit) {
+        val projection = mediaProjection
+        if (projection == null) {
+            Log.e(TAG, "takeScreenshot: MediaProjection not available")
+            onResult(null)
+            return
+        }
+
+        Log.d(TAG, "Taking screenshot via MediaProjection")
+
+        // Create screen capture instance if needed
+        if (screenCapture == null) {
+            screenCapture = MediaProjectionScreenCapture(applicationContext)
+        }
+
+        screenCapture?.takeSingleScreenshot(projection, onResult)
+    }
+
+    /**
+     * Clean up screen capture resources.
+     * Called automatically when service is destroyed.
+     */
+    private fun stopScreenCapture() {
+        screenCapture?.stop()
+        screenCapture = null
     }
 }

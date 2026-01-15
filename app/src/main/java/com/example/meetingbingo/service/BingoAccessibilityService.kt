@@ -26,6 +26,13 @@ class BingoAccessibilityService : AccessibilityService() {
     companion object {
         private const val TAG = "BingoAccessibility"
 
+        /**
+         * Screenshot capture method toggle.
+         * Set to true to use MediaProjection API instead of AccessibilityService.takeScreenshot().
+         * MediaProjection requires AudioCaptureService to be running with an active projection.
+         */
+        var USE_MEDIA_PROJECTION_SCREENSHOTS = false
+
         // Singleton instance for communication with other parts of the app
         var instance: BingoAccessibilityService? = null
             private set
@@ -254,6 +261,34 @@ class BingoAccessibilityService : AccessibilityService() {
     }
 
     private fun tryExtractMeetingIdFromScreenshot() {
+        if (USE_MEDIA_PROJECTION_SCREENSHOTS) {
+            tryMediaProjectionScreenshot()
+        } else {
+            tryAccessibilityScreenshot()
+        }
+    }
+
+    private fun tryMediaProjectionScreenshot() {
+        val audioCaptureService = AudioCaptureService.instance
+        if (audioCaptureService == null || !audioCaptureService.isMediaProjectionAvailable()) {
+            Log.w(TAG, "MediaProjection not available, falling back to accessibility screenshot")
+            tryAccessibilityScreenshot()
+            return
+        }
+
+        Log.d(TAG, "Taking screenshot via MediaProjection")
+        audioCaptureService.takeScreenshot { bitmap ->
+            if (bitmap != null) {
+                Log.d(TAG, "MediaProjection screenshot taken successfully")
+                processScreenshotForMeetingId(bitmap)
+            } else {
+                Log.e(TAG, "MediaProjection screenshot failed, falling back to accessibility")
+                tryAccessibilityScreenshot()
+            }
+        }
+    }
+
+    private fun tryAccessibilityScreenshot() {
         // Take a screenshot using the accessibility service's screenshot capability (API 30+)
         try {
             takeScreenshot(
@@ -261,7 +296,7 @@ class BingoAccessibilityService : AccessibilityService() {
                 applicationContext.mainExecutor,
                 object : TakeScreenshotCallback {
                     override fun onSuccess(screenshot: ScreenshotResult) {
-                        Log.d(TAG, "Screenshot taken successfully")
+                        Log.d(TAG, "Accessibility screenshot taken successfully")
                         val bitmap = Bitmap.wrapHardwareBuffer(
                             screenshot.hardwareBuffer,
                             screenshot.colorSpace
@@ -277,7 +312,7 @@ class BingoAccessibilityService : AccessibilityService() {
                     }
 
                     override fun onFailure(errorCode: Int) {
-                        Log.e(TAG, "Screenshot failed with error code: $errorCode")
+                        Log.e(TAG, "Accessibility screenshot failed with error code: $errorCode")
                         extractionInProgress = false
                         closeDialog()
                     }
@@ -483,9 +518,36 @@ class BingoAccessibilityService : AccessibilityService() {
      * This is a manual trigger - user should have the Meeting info dialog open.
      */
     fun extractMeetingIdFromScreenshot() {
-        Log.d(TAG, "Manual screenshot OCR triggered")
+        Log.d(TAG, "Manual screenshot OCR triggered (USE_MEDIA_PROJECTION=$USE_MEDIA_PROJECTION_SCREENSHOTS)")
         onDetectionStarted?.invoke()
 
+        if (USE_MEDIA_PROJECTION_SCREENSHOTS) {
+            extractMeetingIdViaMediaProjection()
+        } else {
+            extractMeetingIdViaAccessibility()
+        }
+    }
+
+    private fun extractMeetingIdViaMediaProjection() {
+        val audioCaptureService = AudioCaptureService.instance
+        if (audioCaptureService == null || !audioCaptureService.isMediaProjectionAvailable()) {
+            Log.w(TAG, "MediaProjection not available, falling back to accessibility")
+            extractMeetingIdViaAccessibility()
+            return
+        }
+
+        audioCaptureService.takeScreenshot { bitmap ->
+            if (bitmap != null) {
+                Log.d(TAG, "MediaProjection manual screenshot taken successfully")
+                processScreenshotForMeetingIdWithCallback(bitmap)
+            } else {
+                Log.e(TAG, "MediaProjection screenshot failed")
+                onDetectionFailed?.invoke("MediaProjection screenshot failed")
+            }
+        }
+    }
+
+    private fun extractMeetingIdViaAccessibility() {
         try {
             takeScreenshot(
                 Display.DEFAULT_DISPLAY,
